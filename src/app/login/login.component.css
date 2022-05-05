@@ -1,0 +1,16 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  top: 25em;
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.link-btns {
+  display: flex;
+  justify-content: space-between;
+}
+.form {
+  margin-top: 10px;
+}
