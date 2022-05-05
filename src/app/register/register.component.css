@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
   height: 100vh;
-  top: 25em;
+  top: 10em;
   width: 40%;
   margin: auto;
   display: flex;
@@ -10,6 +10,7 @@
 .link-btns {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 }
 .form {
   margin-top: 10px;
