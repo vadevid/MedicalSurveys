@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-register',
@@ -47,7 +49,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css'.toString()]
 })
 export class RegisterComponent implements OnInit {
-  constructor() {
+  router: Router;
+  route: ActivatedRoute;
+  data: {};
+  constructor(@Inject(Router) router: Router, @Inject(ActivatedRoute) route: ActivatedRoute) {
+    this.router = router;
+    this.route = route;
   }
 
   ngOnInit(): void {

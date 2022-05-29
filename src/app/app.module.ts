@@ -14,6 +14,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatNativeDateModule} from "@angular/material/core";
 import {FormsModule} from '@angular/forms';
 import {Router, RouterModule, Routes} from "@angular/router";
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import {AppEffects} from "./app.effects";
 
 const routes: Routes = [
   {
@@ -50,7 +57,12 @@ const routes: Routes = [
     MatDatepickerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    // EffectsModule.forRoot([AppEffects]),
   ],
   providers: [
   ],

@@ -1,5 +1,6 @@
 import {Component, Inject, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {StoreRouterConfig} from "@ngrx/router-store";
 
 @Component({
   selector: 'app-login',
@@ -28,8 +29,6 @@ import {Router} from "@angular/router";
 @Injectable({providedIn: 'root'})
 export class LoginComponent implements OnInit {
   login: string;
-  loginCheck: boolean = false;
-  passCheck: boolean = false;
   pass: string;
   activate: boolean = false;
   routing: Router;
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   LoginBtn() {
-    if (this.login == 'vadevid' && this.pass == 'pass') this.routing.navigate(['register'])
+    if (this.login == 'vadevid' && this.pass == 'pass') this.routing.navigate(['register', {login : this.login, pass : this.pass}])
   }
 
   ngOnInit() {
