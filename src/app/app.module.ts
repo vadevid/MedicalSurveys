@@ -21,6 +21,25 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import {AppEffects} from "./app.effects";
+import { ClientPageComponent } from './client-page/client-page.component';
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  DropdownModule,
+  GridModule,
+  HeaderModule,
+  NavModule
+} from "@coreui/angular";
+import { DashboardClientComponent } from './dashboard-client/dashboard-client.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const routes: Routes = [
   {
@@ -35,6 +54,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'clientpage',
+    component: ClientPageComponent
   }
 ];
 
@@ -43,6 +66,9 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    ClientPageComponent,
+    DashboardClientComponent,
+    NavBarComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -61,7 +87,21 @@ const routes: Routes = [
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    GridModule,
+    HeaderModule,
+    NavModule,
+    BreadcrumbModule,
+    DropdownModule,
+    AvatarModule,
+    BadgeModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
     // EffectsModule.forRoot([AppEffects]),
   ],
   providers: [
