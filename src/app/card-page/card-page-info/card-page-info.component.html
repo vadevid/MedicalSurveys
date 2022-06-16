@@ -1,0 +1,17 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Давление</h1>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Таблица"><app-card-page-table [id]="id"></app-card-page-table></mat-tab>
+    <mat-tab label="График"><app-card-page-graph [id]="id"></app-card-page-graph></mat-tab>
+  </mat-tab-group>
+<!--  <button mat-raised-button (click)="show = !show" color="primary">Переключить</button>-->
+  <div *ngIf="show;then inputfield else textfield">
+  </div>
+  <ng-template #inputfield>
+    <div>ToDo Инпуты для значений</div>
+  </ng-template>
+  <ng-template #textfield>
+    <div>ToDo текст филд</div>
+  </ng-template>
+
+</div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, OnInit} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +15,6 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {FormsModule} from '@angular/forms';
 import {Router, RouterModule, Routes} from "@angular/router";
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
@@ -40,6 +39,19 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {IconModule} from "@coreui/icons-angular";
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { CardPageComponent } from './card-page/card-page.component';
+import { CardPageNavComponent } from './card-page/card-page-nav/card-page-nav.component';
+import { CardPageInfoComponent } from './card-page/card-page-info/card-page-info.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import { CardPageTableComponent } from './card-page/card-page-table/card-page-table.component';
+import { CardPageGraphComponent } from './card-page/card-page-graph/card-page-graph.component';
+import {USER_REDUCER_NODE, userReducer} from "./store/user.reducer";
+import {UserSyncStorageService} from "./service/user-sync-storage.service";
 
 const routes: Routes = [
   {
@@ -58,6 +70,10 @@ const routes: Routes = [
   {
     path: 'clientpage',
     component: ClientPageComponent
+  },
+  {
+    path: 'cardpage',
+    component: CardPageComponent
   }
 ];
 
@@ -69,6 +85,12 @@ const routes: Routes = [
     ClientPageComponent,
     DashboardClientComponent,
     NavBarComponent,
+    ProfileDialogComponent,
+    CardPageComponent,
+    CardPageNavComponent,
+    CardPageInfoComponent,
+    CardPageTableComponent,
+    CardPageGraphComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -81,12 +103,17 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
     }),
+    StoreModule.forFeature(USER_REDUCER_NODE, userReducer),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     GridModule,
     HeaderModule,
@@ -102,10 +129,14 @@ const routes: Routes = [
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    // EffectsModule.forRoot([AppEffects]),
+    MatButtonToggleModule,
+    IconModule,
+    MatPaginatorModule,
+    MatTabsModule,
   ],
   providers: [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{
+}

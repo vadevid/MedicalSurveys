@@ -1,0 +1,28 @@
+.dialogDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.constValues {
+  border: 2px solid #3f51b5;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+.varValues {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.blockValues {
+  border: 2px solid #3f51b5;
+  border-radius: 10px;
+  padding: 8px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+}

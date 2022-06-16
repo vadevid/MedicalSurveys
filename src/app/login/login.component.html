@@ -1,13 +1,15 @@
-<div class="container">
+<div class="container" >
   <div class="wrapper">
     <span class="title">Вход</span>
     <mat-form-field appearance="outline">
       <mat-label>Логин</mat-label>
       <input name="loginInput" [(ngModel)]="login" matInput>
+      <mat-error *ngIf="loginErr">Такого пользователя не существует</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Пароль</mat-label>
       <input type="password" name="passInput" [(ngModel)]="pass" matInput>
+      <mat-error *ngIf="passErr">Неверный пароль</mat-error>
     </mat-form-field>
     <div class="link-btns">
       <a mat-raised-button routerLink="/register">Регистрация</a>

@@ -9,12 +9,10 @@ import {data} from "autoprefixer";
 })
 export class RegisterComponent implements OnInit {
   router: Router;
-  route: ActivatedRoute;
   login: string;
   pass: string;
-  constructor(@Inject(Router) router: Router, @Inject(ActivatedRoute) route: ActivatedRoute) {
+  constructor(@Inject(Router) router: Router) {
     this.router = router;
-    this.route = route;
   }
 
   RegisterBtn() {
