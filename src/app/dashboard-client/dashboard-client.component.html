@@ -1,7 +1,7 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="3" rowHeight="180px">
-    <mat-grid-tile *ngFor="let card of pagedList" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile *ngFor="let card of pagedList" [colspan]="1" [rowspan]="1">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title class="cardTitleBlock">
@@ -9,7 +9,7 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <span class="doctorName">Доктор: {{card.doctor}}</span>
+            <span class="doctorName">Доктор: {{card.doctorName}}</span>
             <a mat-raised-button color="primary" class="more-button" [routerLink]="['/cardpage', {id: card.id}]">
               Заполнить
             </a>

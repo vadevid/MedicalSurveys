@@ -1,6 +1,7 @@
 export class Card {
   id: number;
   name: string;
-  doctor: string;
+  doctorName: string;
+  doctorType: string;
   type: string;
 }

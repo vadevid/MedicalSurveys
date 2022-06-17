@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card-page-nav',
@@ -12,6 +13,7 @@ export class CardPageNavComponent implements OnInit {
 
   @Input()
   id: number;
+  router: Router;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -19,9 +21,14 @@ export class CardPageNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, @Inject(Router) router: Router) {
+    this.router = router;
+  }
 
   ngOnInit(): void {
+    if (this.id == 0) {
+      this.router.navigate(['/login']);
+    }
   }
 
 }

@@ -20,14 +20,8 @@ export class ClientPageComponent implements OnInit {
     private userSyncStorage: UserSyncStorageService
   ) { }
 
-
-
   ngOnInit(): void {
     this.userSyncStorage.init();
-  }
-
-  onLogout(userid: number) {
-    this.store$.dispatch(new UserLogoutAction({userid}))
   }
 
 }
