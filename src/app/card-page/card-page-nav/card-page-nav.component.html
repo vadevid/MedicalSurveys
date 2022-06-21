@@ -10,8 +10,9 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>MedicalSurvey</span>
+      <button  (click)="openProfileDialog()" mat-button><img class="avatar" src="./assets/avatar-1.png"></button>
     </mat-toolbar>
-    <app-card-page-info [id]="id" ></app-card-page-info>
+    <app-card-page-info [cardid]="cardid" ></app-card-page-info>
   </mat-sidenav-content>
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

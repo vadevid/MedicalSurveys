@@ -51,7 +51,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { CardPageTableComponent } from './card-page/card-page-table/card-page-table.component';
 import { CardPageGraphComponent } from './card-page/card-page-graph/card-page-graph.component';
 import {USER_REDUCER_NODE, userReducer} from "./store/user.reducer";
-import {UserSyncStorageService} from "./service/user-sync-storage.service";
+import {MatTableModule} from "@angular/material/table";
+import {GoogleChartsModule} from "angular-google-charts";
 
 const routes: Routes = [
   {
@@ -92,48 +93,50 @@ const routes: Routes = [
     CardPageTableComponent,
     CardPageGraphComponent,
   ],
-  imports: [
-    RouterModule.forRoot(routes, {useHash: true}),
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    StoreModule.forRoot({}, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
-    StoreModule.forFeature(USER_REDUCER_NODE, userReducer),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    GridModule,
-    HeaderModule,
-    NavModule,
-    BreadcrumbModule,
-    DropdownModule,
-    AvatarModule,
-    BadgeModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatButtonToggleModule,
-    IconModule,
-    MatPaginatorModule,
-    MatTabsModule,
-  ],
+    imports: [
+        RouterModule.forRoot(routes, {useHash: true}),
+        FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatSelectModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        StoreModule.forRoot({}, {
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+            }
+        }),
+        StoreModule.forFeature(USER_REDUCER_NODE, userReducer),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        GridModule,
+        HeaderModule,
+        NavModule,
+        BreadcrumbModule,
+        DropdownModule,
+        AvatarModule,
+        BadgeModule,
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonToggleModule,
+        IconModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatTableModule,
+        GoogleChartsModule,
+    ],
   providers: [
   ],
   bootstrap: [AppComponent]

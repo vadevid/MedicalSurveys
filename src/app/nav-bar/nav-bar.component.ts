@@ -15,6 +15,8 @@ export class NavBarComponent implements OnInit{
 
   @Input()
   userid: number;
+  @Input()
+  token: string;
 
   logoutEmmit = new EventEmitter<number>();
 
@@ -40,7 +42,8 @@ export class NavBarComponent implements OnInit{
     this.dialog.open(ProfileDialogComponent, {
       width: '800px',
       data: {
-        userId: this.userid
+        userId: this.userid,
+        token: this.token
       }
     })
   }

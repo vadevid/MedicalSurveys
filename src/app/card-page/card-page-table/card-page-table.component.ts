@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CardValues} from "../../model/card-values";
+import axios from "axios";
 
 @Component({
   selector: 'app-card-page-table',
@@ -7,11 +9,23 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardPageTableComponent implements OnInit {
   @Input()
-  id: number;
+  cardid: number;
 
+  dataSource : CardValues[] = [];
+  displayedColumns: string[] = ['answer', 'answerDate']
   constructor() { }
 
   ngOnInit(): void {
+    this.GetData();
+  }
+
+  async GetData() {
+    await axios.post("http://localhost:8080/card/getallanswer", {
+      id: this.cardid
+    }).then((response) => {
+        this.dataSource = response.data;
+      }
+    )
   }
 
 }

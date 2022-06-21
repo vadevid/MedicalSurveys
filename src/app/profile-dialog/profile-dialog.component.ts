@@ -33,6 +33,7 @@ export class ProfileDialogComponent implements OnInit {
   }
   logoutEmmit = new EventEmitter<number>();
   userId: number = this.data.userId;
+  token: string = this.data.token;
 
   OnLogout() {
     this.logoutEmmit.emit(this.userId);
@@ -51,6 +52,10 @@ export class ProfileDialogComponent implements OnInit {
   async getPatientInfo(userid: number) {
     await axios.post('http://localhost:8080/patient/info', {
       "id": userid
+    }, {
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
     }).then((responce) => {
       console.log(responce.data);
       this.fio = responce.data.fio;

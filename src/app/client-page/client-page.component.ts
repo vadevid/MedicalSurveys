@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {UserState} from "../store/user.reducer";
-import {userSelector} from "../store/user.selectors";
+import {tokenSelector, userSelector} from "../store/user.selectors";
 import {Observable} from "rxjs";
 import {UserSyncStorageService} from "../service/user-sync-storage.service";
 import {UserLogoutAction} from "../store/user.actions";
@@ -14,6 +14,7 @@ import {UserLogoutAction} from "../store/user.actions";
 export class ClientPageComponent implements OnInit {
 
   userId: Observable<number> = this.store$.pipe(select(userSelector));
+  token: Observable<string> = this.store$.pipe(select(tokenSelector));
 
   constructor(
     private store$: Store<UserState>,

@@ -3,6 +3,8 @@ import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {ProfileDialogComponent} from "../../profile-dialog/profile-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-card-page-nav',
@@ -12,8 +14,11 @@ import {Router} from "@angular/router";
 export class CardPageNavComponent implements OnInit {
 
   @Input()
-  id: number;
+  cardid: number;
+  @Input()
+  userId: number;
   router: Router;
+  dialog: MatDialog;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -21,14 +26,23 @@ export class CardPageNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, @Inject(Router) router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver, @Inject(Router) router: Router, @Inject(MatDialog) private matDialog: MatDialog) {
     this.router = router;
+    this.dialog = matDialog;
   }
 
   ngOnInit(): void {
-    if (this.id == 0) {
+    if (this.userId == 0) {
       this.router.navigate(['/login']);
     }
+  }
+  openProfileDialog() {
+    this.dialog.open(ProfileDialogComponent, {
+      width: '800px',
+      data: {
+        userId: this.userId
+      }
+    })
   }
 
 }

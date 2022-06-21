@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import axios from "axios";
+import {CardValues} from "../../model/card-values";
+import {ChartType, Row} from "angular-google-charts";
 
 @Component({
   selector: 'app-card-page-graph',
@@ -7,11 +10,34 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardPageGraphComponent implements OnInit {
   @Input()
-  id: number;
+  cardid: number;
 
-  constructor() { }
+  title = 'Показатели';
+  type: ChartType = ChartType.LineChart;
 
-  ngOnInit(): void {
+  constructor() {
+  }
+  dataSource : CardValues[] = [];
+  chartData: Row[] = [
+  ];
+
+  ngOnInit() {
+    this.GetData();
   }
 
+  LoadChartData() {
+    this.dataSource.forEach((item) => {
+      this.chartData.push([item.answerDate, Number(item.answer)])
+    })
+  }
+
+  async GetData() {
+    await axios.post("http://localhost:8080/card/getallanswer", {
+      id: this.cardid
+    }).then((response) => {
+        this.dataSource = response.data;
+      }
+    )
+    this.LoadChartData()
+  }
 }

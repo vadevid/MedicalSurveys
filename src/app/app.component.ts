@@ -13,8 +13,4 @@ export class AppComponent {
     private store$: Store<UserState>,
   ) {
   }
-
-  onLogin(userid: number) {
-    this.store$.dispatch(new UserLoginAction({userid}))
-  }
 }

@@ -4,13 +4,13 @@ import {UserState} from "./user.reducer";
 export enum userActionsType {
   login = '[USER] login user',
   logout = '[USER] logout user',
-  load = '[USER] load user state'
+  load = '[USER] load user state',
 }
 
 export class UserLoginAction implements Action {
   readonly type = userActionsType.login;
 
-  constructor(public payload: { userid: number }) {
+  constructor(public payload: { userid: number, token: string }) {
   }
 }
 

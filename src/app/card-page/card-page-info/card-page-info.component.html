@@ -1,17 +1,36 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Давление</h1>
-  <mat-tab-group mat-align-tabs="start">
-    <mat-tab label="Таблица"><app-card-page-table [id]="id"></app-card-page-table></mat-tab>
-    <mat-tab label="График"><app-card-page-graph [id]="id"></app-card-page-graph></mat-tab>
+  <h1 class="mat-h1">{{cardInfo.name}}</h1>
+  <h4 class="mat-h4">{{cardInfo.doctor.secondName}} {{cardInfo.doctor.firstName}}  {{cardInfo.doctor.middleName}}</h4>
+  <mat-tab-group class="tabs" mat-align-tabs="start">
+    <mat-tab label="Таблица"><app-card-page-table [cardid]="cardid"></app-card-page-table></mat-tab>
+    <mat-tab label="График"><app-card-page-graph [cardid]="cardid"></app-card-page-graph></mat-tab>
   </mat-tab-group>
-<!--  <button mat-raised-button (click)="show = !show" color="primary">Переключить</button>-->
-  <div *ngIf="show;then inputfield else textfield">
+  <div *ngIf="show;then numberfield else textfield">
   </div>
-  <ng-template #inputfield>
-    <div>ToDo Инпуты для значений</div>
+  <ng-template #numberfield>
+    <div class="numberInfo">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>{{cardInfo.name}}</mat-label>
+        <input
+          matInput
+          class="numberInput"
+          type="number"
+        />
+      </mat-form-field>
+      <button mat-raised-button color="primary">Отправить</button>
+    </div>
   </ng-template>
   <ng-template #textfield>
-    <div>ToDo текст филд</div>
+    <div class="numberInfo">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>{{cardInfo.name}}</mat-label>
+        <textarea
+          matInput
+          class="numberInput"
+          type="text"
+        ></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Отправить</button>
+    </div>
   </ng-template>
-
 </div>

@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   loginErr: boolean = false;
   passErr: boolean = false;
   userid: number;
+  token: string;
   constructor(@Inject(Router) router: Router,
               @Inject(ActivatedRoute) route: ActivatedRoute,
               private store$: Store<UserState>,
@@ -36,22 +37,25 @@ export class LoginComponent implements OnInit {
   }
 
   loginEmmit = new EventEmitter<number>();
+  tokenEmmit = new EventEmitter<string>();
 
   onLogin() {
     this.loginEmmit.emit(this.userid);
-    this.onLoginDispatch(this.userid);
+    this.tokenEmmit.emit(this.token);
+    this.onLoginDispatch(this.userid, this.token);
   }
-  onLoginDispatch(userid: number) {
-    this.store$.dispatch(new UserLoginAction({userid}))
+  onLoginDispatch(userid: number, token: string) {
+    this.store$.dispatch(new UserLoginAction({userid, token}))
   }
 
   async LoginBtn() {
-    await axios.post('http://localhost:8080/patient/login', {
+    await axios.post('http://localhost:8080/auth/login', {
       "login": this.login,
       "password": this.pass
-    }).then((response) => {
-      this.userid = Number(response.data.toString().substring(1));
-      switch (response.data.toString().substring(0, 1)) {
+    }, ).then((response) => {
+      this.userid = Number(response.data.id);
+      this.token = response.data.token;
+      switch (response.data.code) {
         case "0":
           this.onLogin();
           this.routing.navigate(['clientpage']);

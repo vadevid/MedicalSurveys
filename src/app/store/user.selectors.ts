@@ -5,5 +5,10 @@ export const userFeatureSelector = createFeatureSelector<UserState>(USER_REDUCER
 
 export const userSelector = createSelector(
   userFeatureSelector,
-  state => state.userid
+  state => state.userid,
+)
+
+export const tokenSelector = createSelector(
+  userFeatureSelector,
+  state => state.token
 )

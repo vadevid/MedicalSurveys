@@ -4,10 +4,12 @@ export const USER_REDUCER_NODE = 'user';
 
 export interface UserState {
   userid: number;
+  token: string;
 }
 
 const initialState: UserState = {
   userid: 0,
+  token: ""
 }
 
 export const userReducer = (state = initialState, action: UserActions) => {
@@ -15,7 +17,8 @@ export const userReducer = (state = initialState, action: UserActions) => {
     case userActionsType.login:
       return {
         ...state,
-        userid: action.payload.userid
+        userid: action.payload.userid,
+        token: action.payload.token
       }
     case userActionsType.load:
       return {
