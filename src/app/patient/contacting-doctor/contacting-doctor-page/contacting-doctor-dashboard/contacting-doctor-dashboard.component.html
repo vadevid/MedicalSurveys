@@ -1,0 +1,12 @@
+<div class="dashboard">
+  <span>Введите обращение</span>
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Сообщение</mat-label>
+    <textarea [(ngModel)]="textValue"
+              matInput
+              class="numberInput"
+              type="text"
+    ></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" class="dashboard-button" (click)="SendMessage()">Отправить</button>
+</div>

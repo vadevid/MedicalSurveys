@@ -1,0 +1,31 @@
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  width: 50px;
+  word-wrap: break-word;
+}
+
+.doctorName {
+  font-size: medium;
+}
+
+.more-button {
+  margin-top: 15px;
+}

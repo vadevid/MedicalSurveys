@@ -5,4 +5,6 @@ export class CardValues {
   valueName: string;
   answer: string;
   answerDate: string;
+  minValue: number;
+  maxValue: number;
 }

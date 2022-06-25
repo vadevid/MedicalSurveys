@@ -1,0 +1,13 @@
+.grid-container {
+  margin: 20px;
+}
+
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.example-margin {
+  margin: 10px 0;
+}

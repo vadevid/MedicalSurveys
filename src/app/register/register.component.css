@@ -1,17 +1,37 @@
 .wrapper {
   position: relative;
-  height: 100vh;
-  top: 3em;
-  width: 40%;
-  margin: auto;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
 }
 .link-btns {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
 }
-.form {
-  margin-top: 10px;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4em;
+}
+
+.container-wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+.inputs {
+  display: flex;
+}
+
+.radio {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-margin {
+  margin: 10px 0;
+}
+
+.button-margin {
+  margin: 0 20px;
 }

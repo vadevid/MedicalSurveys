@@ -4,13 +4,12 @@
     <mat-form-field appearance="outline">
       <mat-label>Логин</mat-label>
       <input name="loginInput" [(ngModel)]="login" matInput>
-      <mat-error *ngIf="loginErr">Такого пользователя не существует</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Пароль</mat-label>
       <input type="password" name="passInput" [(ngModel)]="pass" matInput>
-      <mat-error *ngIf="passErr">Неверный пароль</mat-error>
     </mat-form-field>
+    <mat-slide-toggle (change)="doctorCheck = !doctorCheck" class="togle" color="primary">Доктор</mat-slide-toggle>
     <div class="link-btns">
       <a mat-raised-button routerLink="/register">Регистрация</a>
       <button mat-raised-button color="primary" (click)="LoginBtn()">Войти</button>
