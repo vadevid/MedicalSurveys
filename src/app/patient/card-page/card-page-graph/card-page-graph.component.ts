@@ -13,7 +13,7 @@ export class CardPageGraphComponent implements OnInit {
   cardid: number;
   @Input()
   token: string;
-  columnNames = ["Дата" ,"Значение", "Мин", "Макс"]
+  columnNames = ["Дата", "Значение", "Мин", "Макс"]
   dataSource: CardValues[] = []
   options = {
     hAxis: {
