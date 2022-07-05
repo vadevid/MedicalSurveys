@@ -40,4 +40,7 @@ public class PatientService {
             return false;
         }
     }
+    public Patient findByLogin(String login) {
+        return patientRepository.findByLogin(login);
+    }
 }
