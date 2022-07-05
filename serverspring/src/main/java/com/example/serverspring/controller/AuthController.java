@@ -5,7 +5,6 @@ import com.example.serverspring.entity.Patient;
 import com.example.serverspring.models.AnswerModel;
 import com.example.serverspring.models.PatientModel;
 import com.example.serverspring.repository.PatientRepository;
-import com.example.serverspring.security.jwt.JwtTokenProvider;
 import com.example.serverspring.service.AuthenticationService;
 import com.example.serverspring.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +31,6 @@ public class AuthController {
 
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
 
     @PostMapping(path= "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean RegisterPatient(@RequestBody @Validated PatientModel patient) {
@@ -44,17 +39,7 @@ public class AuthController {
 
     @PostMapping(path= "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public AnswerModel LoginPatient(@RequestBody @Validated Patient patient) {
-        String login = patient.getLogin();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, patient.getPassword()));
-        Patient patient1 = patientService.findByLogin(login);
-
-        if (patient1 == null) {
-            return new AnswerModel("2");
-        }
-
-        String token = jwtTokenProvider.createToken(login);
-
-        return new AnswerModel("0", patient1.getId().toString(), token);
+        return authenticationService.login(patient);
     }
 
     @PostMapping(path= "/logindoctor", produces = MediaType.APPLICATION_JSON_VALUE)
