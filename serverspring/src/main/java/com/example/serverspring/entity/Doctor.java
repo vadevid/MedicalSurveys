@@ -41,6 +41,16 @@ public class Doctor {
     public Doctor() {
     }
 
+    public Doctor(Integer id, String secondName, String firstName, String middleName, String login, String password, String type) {
+        this.id = id;
+        this.secondName = secondName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.login = login;
+        this.password = password;
+        this.type = type;
+    }
+
     public String getFIO() {
         return (secondName + " " + firstName + " " + middleName);
     }
