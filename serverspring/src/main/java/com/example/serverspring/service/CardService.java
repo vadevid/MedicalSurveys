@@ -46,8 +46,7 @@ public class CardService {
 
     public CardInfoModel getById(Integer id) {
         Card card = cardRepository.getById(id);
-        CardInfoModel returnedCard = new CardInfoModel(card.getId(), card.getName(), card.getDoctor(), card.getPatient(), card.getType());
-        return returnedCard;
+        return new CardInfoModel(card.getId(), card.getName(), card.getDoctor(), card.getPatient(), card.getType());
     }
 
     public List<CardAnswerModel> getAllAnswer(Integer id) {

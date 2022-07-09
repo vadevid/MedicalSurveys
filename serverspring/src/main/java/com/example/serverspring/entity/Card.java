@@ -55,4 +55,12 @@ public class Card {
     }
 
     public Card(){};
+
+    public Card(Integer id, String name, Patient patient, Doctor doctor, String type) {
+        this.id = id;
+        this.name = name;
+        this.patient = patient;
+        this.doctor = doctor;
+        this.type = type;
+    }
 }
