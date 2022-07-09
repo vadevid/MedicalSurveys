@@ -2,7 +2,6 @@ package com.example.serverspring.service;
 
 import com.example.serverspring.entity.ContactingADoctor;
 import com.example.serverspring.entity.Doctor;
-import com.example.serverspring.entity.Patient;
 import com.example.serverspring.models.AnswerCardModel;
 import com.example.serverspring.repository.ContactingADoctorRepository;
 import com.example.serverspring.repository.DoctorRepository;

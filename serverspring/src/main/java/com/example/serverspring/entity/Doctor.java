@@ -33,6 +33,14 @@ public class Doctor {
     @Column(name = "type", nullable = false, length = 50)
     private String type;
 
+    public Doctor(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
+    public Doctor() {
+    }
+
     public String getFIO() {
         return (secondName + " " + firstName + " " + middleName);
     }

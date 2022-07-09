@@ -9,13 +9,9 @@ import com.example.serverspring.service.AuthenticationService;
 import com.example.serverspring.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController
@@ -28,9 +24,6 @@ public class AuthController {
 
     @Autowired
     PatientRepository patientRepository;
-
-    private AuthenticationManager authenticationManager;
-
 
     @PostMapping(path= "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean RegisterPatient(@RequestBody @Validated PatientModel patient) {

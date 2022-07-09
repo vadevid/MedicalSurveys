@@ -56,6 +56,27 @@ public class Patient {
 
     public Patient () {}
 
+    public Patient(Integer id, String secondName, String firstName, String middleName, String email, String login, String password, LocalDate birthdate, String sex) {
+        this.id = id;
+        this.secondName = secondName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.sex = sex;
+    }
+
+    public Patient(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
+    public Patient(Integer id) {
+        this.id = id;
+    }
+
     public String getFIO() {
         return (secondName + " " + firstName + " " + middleName);
     }

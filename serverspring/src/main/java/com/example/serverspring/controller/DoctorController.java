@@ -51,37 +51,16 @@ public class DoctorController {
         return null;
     }
     @PostMapping(path = "/getallmessage", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<AnswerCardModel> getAllMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated Doctor doctor) {
-        for (UserToken ut : tokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
-                return doctorService.getAllMessage(doctor.getId());
-            }
-        }
-        return null;
+    List<AnswerCardModel> getAllMessage(@RequestBody @Validated Doctor doctor) {
+        return doctorService.getAllMessage(doctor.getId());
     }
     @PostMapping(path = "/getmessage", produces = MediaType.APPLICATION_JSON_VALUE)
-    MessageModel getMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated ContactingADoctor contactingADoctor) {
-        for (UserToken ut : tokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
-                return contactingADoctorService.getMessage(contactingADoctorRepository.getById(contactingADoctor.getId()));
-            }
-        }
-        return null;
+    MessageModel getMessage(@RequestBody @Validated ContactingADoctor contactingADoctor) {
+        return contactingADoctorService.getMessage(contactingADoctorRepository.getById(contactingADoctor.getId()));
     }
 
     @PostMapping(path = "/sendcard", produces = MediaType.APPLICATION_JSON_VALUE)
-    boolean SendCard(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated NewCardModel newCardModel) {
-        for (UserToken ut : tokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
-                return cardService.save(newCardModel);
-            }
-        }
-        return false;
+    boolean SendCard(@RequestBody @Validated NewCardModel newCardModel) {
+        return cardService.save(newCardModel);
     }
 }

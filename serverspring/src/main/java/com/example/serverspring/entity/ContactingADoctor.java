@@ -34,4 +34,15 @@ public class ContactingADoctor {
 
     public ContactingADoctor() {
     }
+
+    public ContactingADoctor(Integer id) {
+        this.id = id;
+    }
+
+    public ContactingADoctor(Integer id, String text, Doctor doctor, Patient patient) {
+        this.id = id;
+        this.text = text;
+        this.doctor = doctor;
+        this.patient = patient;
+    }
 }

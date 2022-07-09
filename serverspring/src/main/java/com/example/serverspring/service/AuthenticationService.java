@@ -82,26 +82,10 @@ public class AuthenticationService {
         }
     }
     public AnswerModel loginDoctor(Doctor doctor) {
-        String token = "";
-        Map<String, Object> tokenData = new HashMap<>();
         try {
             Doctor tmp = doctorRepository.getByLogin(doctor.getLogin());
             if (tmp.getPassword().equals(Hashing.sha256().hashString(doctor.getPassword(), StandardCharsets.UTF_8).toString())) {
-                tokenData.put("clientType", "user");
-                tokenData.put("userID", tmp.getId());
-                tokenData.put("username", tmp.getFIO());
-                tokenData.put("token_create_date", new Date().getTime());
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.YEAR, 100);
-                tokenData.put("token_expiration_date", calendar.getTime());
-                JwtBuilder jwtBuilder = Jwts.builder();
-                jwtBuilder.setExpiration(calendar.getTime());
-                jwtBuilder.setClaims(tokenData);
-                String key = "abc123";
-                token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
-                tokenRepository.getUsersTokenList().add(new UserToken(tmp.getLogin(), "Bearer " + token));
-
-                return new AnswerModel("0", tmp.getId().toString(), token);
+                return new AnswerModel("0", tmp.getId().toString());
 
             } else return new AnswerModel("1");
         } catch (Exception e) {
