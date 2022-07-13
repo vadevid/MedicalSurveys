@@ -30,6 +30,7 @@ dependencies {
     implementation 'commons-io:commons-io:20030203.000550'
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.0'
     runtimeOnly 'com.h2database:h2:2.1.212'

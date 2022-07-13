@@ -1,10 +1,10 @@
 package com.example.serverspring.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class AnswerModel {
     public AnswerModel(String code, String id, String token) {
         this.code = code;
@@ -19,9 +19,4 @@ public class AnswerModel {
     private String code;
     private String id;
     private String token;
-
-    public AnswerModel(String code, String id) {
-        this.code = code;
-        this.id = id;
-    }
 }

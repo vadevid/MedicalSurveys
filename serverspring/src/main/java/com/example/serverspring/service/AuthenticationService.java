@@ -6,6 +6,7 @@ import com.example.serverspring.entity.Patient;
 import com.example.serverspring.entity.UserToken;
 import com.example.serverspring.models.AnswerModel;
 import com.example.serverspring.models.PatientModel;
+import com.example.serverspring.models.TokenModel;
 import com.example.serverspring.repository.DefaultValueRepository;
 import com.example.serverspring.repository.DoctorRepository;
 import com.example.serverspring.repository.PatientRepository;
@@ -42,9 +43,14 @@ public class AuthenticationService {
     public boolean save(PatientModel patient) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            Patient repoPatient = new Patient(patient.getSecondName(), patient.getFirstName(), patient.getMiddleName(),
-                    patient.getEmail(), patient.getLogin(), Hashing.sha256().hashString(patient.getPassword(), StandardCharsets.UTF_8).toString(),
-                    LocalDate.parse(patient.getBirthdate(), formatter),patient.getSex());
+            Patient repoPatient = Patient.builder().secondName(patient.getSecondName())
+                    .firstName(patient.getFirstName())
+                    .middleName(patient.getMiddleName())
+                    .email(patient.getEmail())
+                    .login(patient.getLogin())
+                    .password(Hashing.sha256().hashString(patient.getPassword(), StandardCharsets.UTF_8).toString())
+                    .birthdate(LocalDate.parse(patient.getBirthdate(), formatter))
+                    .sex(patient.getSex()).build();
             DefaultValue defaultValue = new DefaultValue(repoPatient, 0, 0);
             patientRepository.save(repoPatient);
             defaultValueRepository.save(defaultValue);
@@ -82,10 +88,26 @@ public class AuthenticationService {
         }
     }
     public AnswerModel loginDoctor(Doctor doctor) {
+        String token = "";
+        Map<String, Object> tokenData = new HashMap<>();
         try {
             Doctor tmp = doctorRepository.getByLogin(doctor.getLogin());
             if (tmp.getPassword().equals(Hashing.sha256().hashString(doctor.getPassword(), StandardCharsets.UTF_8).toString())) {
-                return new AnswerModel("0", tmp.getId().toString());
+                tokenData.put(TokenModel.TYPE.getText(), "user");
+                tokenData.put(TokenModel.ID.getText(), tmp.getId());
+                tokenData.put(TokenModel.NAME.getText(), tmp.getFIO());
+                tokenData.put(TokenModel.CREATE.getText(), new Date().getTime());
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, 100);
+                tokenData.put(TokenModel.EXPIRATION.getText(), calendar.getTime());
+                JwtBuilder jwtBuilder = Jwts.builder();
+                jwtBuilder.setExpiration(calendar.getTime());
+                jwtBuilder.setClaims(tokenData);
+                String key = "abc123";
+                token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
+                tokenRepository.getUsersTokenList().add(new UserToken(tmp.getLogin(), "Bearer " + token));
+
+                return new AnswerModel("0", tmp.getId().toString(), token);
 
             } else return new AnswerModel("1");
         } catch (Exception e) {
@@ -93,7 +115,7 @@ public class AuthenticationService {
         }
     }
 
-    public String DecodeTokenDate(String token) {
+    public String decodeTokenDate(String token) {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getUrlDecoder();
 

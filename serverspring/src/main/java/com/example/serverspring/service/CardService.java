@@ -29,8 +29,10 @@ public class CardService {
         List<Card> listCards = cardRepository.findAllByPatientId(id);
         List<CardModel> listCardModels = new ArrayList<>();
         for (Card card: listCards) {
-            listCardModels.add(new CardModel(card.getId(), card.getName(),
-                    card.getDoctor().getFIO(), card.getDoctor().getType(), card.getType()));
+            listCardModels.add(CardModel.builder().id(card.getId()).name(card.getName())
+                    .doctorName(card.getDoctor().getFIO())
+                    .doctorType(card.getDoctor().getType())
+                    .cardType(card.getType()).build());
         }
         return listCardModels;
     }
@@ -46,20 +48,26 @@ public class CardService {
 
     public CardInfoModel getById(Integer id) {
         Card card = cardRepository.getById(id);
-        return new CardInfoModel(card.getId(), card.getName(), card.getDoctor(), card.getPatient(), card.getType());
+        CardInfoModel returnedCard = CardInfoModel.builder().id(card.getId())
+                .name(card.getName())
+                .doctor(card.getDoctor())
+                .patient(card.getPatient())
+                .cardType(card.getType()).build();
+        return returnedCard;
     }
 
     public List<CardAnswerModel> getAllAnswer(Integer id) {
         List<CardAnswer> cardAnswers = cardAnswerRepository.findAllByCardIdOrderByAnswerDate(id);
         List<CardAnswerModel> cardAnswerModels = new ArrayList<>();
-        for (CardAnswer cardAnswer: cardAnswers) {
-            cardAnswerModels.add(new CardAnswerModel(cardAnswer.getId(), cardAnswer.getCard().getName(),
-                    cardAnswer.getAnswer(), cardAnswer.getAnswerDate().toString(),
-                    cardAnswer.getCard().getMinValue(), cardAnswer.getCard().getMaxValue()));
-        }
+        cardAnswers.forEach((CardAnswer cardAnswer) -> cardAnswerModels.add(CardAnswerModel.builder().id(cardAnswer.getId())
+                .valueName(cardAnswer.getCard().getName())
+                .answer(cardAnswer.getAnswer())
+                .answerDate(cardAnswer.getAnswerDate().toString())
+                .minValue(cardAnswer.getCard().getMinValue())
+                .maxValue(cardAnswer.getCard().getMaxValue()).build()));
         return cardAnswerModels;
     }
-    public boolean newvalue(NewCardAnswerModel newCardAnswerModel) {
+    public boolean newValue(NewCardAnswerModel newCardAnswerModel) {
         try {
             CardAnswer cardAnswer = new CardAnswer(cardRepository.getById(newCardAnswerModel.getCardId()), newCardAnswerModel.getValue());
             cardAnswerRepository.save(cardAnswer);
@@ -73,8 +81,12 @@ public class CardService {
     public boolean save(NewCardModel newCardModel) {
         ContactingADoctor contactingADoctor = contactingADoctorRepository.getById(newCardModel.getContactingId());
         try {
-            cardRepository.save(new Card(newCardModel.getName(), contactingADoctor.getPatient(),
-                    contactingADoctor.getDoctor(), newCardModel.getType(), newCardModel.getMin(), newCardModel.getMax()));
+            cardRepository.save(Card.builder().name(newCardModel.getName())
+                    .patient(contactingADoctor.getPatient())
+                    .doctor(contactingADoctor.getDoctor())
+                    .type(newCardModel.getType())
+                    .minValue(newCardModel.getMin())
+                    .maxValue(newCardModel.getMax()).build());
             contactingADoctorRepository.delete(contactingADoctor);
             return true;
         } catch (Exception e) {

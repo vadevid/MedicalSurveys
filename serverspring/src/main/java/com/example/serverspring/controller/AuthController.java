@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -21,9 +20,9 @@ public class AuthController {
     private AuthenticationService authenticationService;
     @Autowired
     PatientService patientService;
-
     @Autowired
     PatientRepository patientRepository;
+
 
     @PostMapping(path= "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean RegisterPatient(@RequestBody @Validated PatientModel patient) {

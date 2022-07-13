@@ -1,12 +1,12 @@
 package com.example.serverspring.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "doctor")
 public class Doctor {
@@ -32,24 +32,6 @@ public class Doctor {
 
     @Column(name = "type", nullable = false, length = 50)
     private String type;
-
-    public Doctor(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    public Doctor() {
-    }
-
-    public Doctor(Integer id, String secondName, String firstName, String middleName, String login, String password, String type) {
-        this.id = id;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.login = login;
-        this.password = password;
-        this.type = type;
-    }
 
     public String getFIO() {
         return (secondName + " " + firstName + " " + middleName);

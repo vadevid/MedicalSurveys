@@ -1,10 +1,10 @@
 package com.example.serverspring.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserToken {
     private String userLogin;
     private String userToken;

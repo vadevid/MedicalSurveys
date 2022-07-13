@@ -16,20 +16,22 @@ public class PatientService {
     @Autowired
     DefaultValueRepository defaultValueRepository;
 
-    public PatientInfoModel patientinfo(Patient patient) {
+    public PatientInfoModel patientInfo(Patient patient) {
         try {
             Patient tmp = patientRepository.getById(patient.getId());
             DefaultValue defaultValue = defaultValueRepository.findFirstByPatientOrderByIdDesc(tmp);
-            PatientInfoModel patientInfo = new PatientInfoModel(tmp.getFIO(),
-                    tmp.getAge().toString(), tmp.getSex(), String.valueOf(defaultValue.getGrowth()),
-                    String.valueOf(defaultValue.getWeight()), String.valueOf(defaultValue.getMassIndex()));
+            PatientInfoModel patientInfo = PatientInfoModel.builder().fio(tmp.getFIO())
+                    .age(tmp.getAge().toString()).sex(tmp.getSex())
+                    .growth(String.valueOf(defaultValue.getGrowth()))
+                    .weight(String.valueOf(defaultValue.getWeight()))
+                    .mass_index(String.valueOf(defaultValue.getMassIndex())).build();
             return patientInfo;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    public boolean setdefaultvalue(DefaultValueModel defaultValueModel) {
+    public boolean setDefaultValue(DefaultValueModel defaultValueModel) {
         try {
             DefaultValue newDefaultValue = new DefaultValue(patientRepository.getById(defaultValueModel.getPatientId()),
                     Double.parseDouble(defaultValueModel.getGrowth()), Double.parseDouble(defaultValueModel.getWeight()));

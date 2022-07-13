@@ -1,12 +1,12 @@
 package com.example.serverspring.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "default_value")
 public class DefaultValue {

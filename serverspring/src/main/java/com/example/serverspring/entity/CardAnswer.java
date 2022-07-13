@@ -1,13 +1,13 @@
 package com.example.serverspring.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "card_answer")
 public class CardAnswer {

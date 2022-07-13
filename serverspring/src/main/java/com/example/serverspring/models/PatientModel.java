@@ -1,10 +1,10 @@
 package com.example.serverspring.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class PatientModel {
     private String secondName;
     private String firstName;

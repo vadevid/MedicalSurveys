@@ -19,8 +19,10 @@ public class ContactingADoctorService {
     DoctorRepository doctorRepository;
 
     public boolean save(ContactingADoctorModel contactingADoctorModel) {
-        ContactingADoctor contactingADoctor = new ContactingADoctor(patientRepository.getById(contactingADoctorModel.getPatientId()),
-                doctorRepository.getById(contactingADoctorModel.getDoctorId()), contactingADoctorModel.getMessage());
+        ContactingADoctor contactingADoctor = ContactingADoctor.builder()
+                .patient(patientRepository.getById(contactingADoctorModel.getPatientId()))
+                .doctor(doctorRepository.getById(contactingADoctorModel.getDoctorId()))
+                .text(contactingADoctorModel.getMessage()).build();
         contactingADoctorRepository.save(contactingADoctor);
         return true;
     }

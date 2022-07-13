@@ -1,12 +1,13 @@
 package com.example.serverspring.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "contacting_a_doctor")
 public class ContactingADoctor {
@@ -26,23 +27,4 @@ public class ContactingADoctor {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    public ContactingADoctor(Patient patient, Doctor doctor, String text) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.text = text;
-    }
-
-    public ContactingADoctor() {
-    }
-
-    public ContactingADoctor(Integer id) {
-        this.id = id;
-    }
-
-    public ContactingADoctor(Integer id, String text, Doctor doctor, Patient patient) {
-        this.id = id;
-        this.text = text;
-        this.doctor = doctor;
-        this.patient = patient;
-    }
 }

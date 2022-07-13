@@ -1,12 +1,13 @@
 package com.example.serverspring.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "card")
 public class Card {
@@ -34,33 +35,4 @@ public class Card {
 
     @Column(name = "max_value")
     private Double maxValue;
-
-    public Card(Integer id, String name, Patient patient, Doctor doctor, String type, Double minValue, Double maxValue) {
-        this.id = id;
-        this.name = name;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.type = type;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-    }
-
-    public Card(String name, Patient patient, Doctor doctor, String type, Double minValue, Double maxValue) {
-        this.name = name;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.type = type;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-    }
-
-    public Card(){};
-
-    public Card(Integer id, String name, Patient patient, Doctor doctor, String type) {
-        this.id = id;
-        this.name = name;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.type = type;
-    }
 }
