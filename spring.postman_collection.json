@@ -11,7 +11,32 @@
 			"item": [
 				{
 					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var token = jsonData.token;\r",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -42,7 +67,28 @@
 					"name": "register",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"secondName\": \"Кислицын\",\r\n    \"firstName\": \"Александр\",\r\n    \"middleName\": \"Валерьевич\",\r\n    \"email\": \"kis@mail.ru\",\r\n    \"login\": \"alex\",\r\n    \"password\": \"password\",\r\n    \"birthdate\": \"03.02.2002\",\r\n    \"sex\": \"М\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
@@ -53,7 +99,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"alex\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"login\": \"doctor2\",\r\n    \"password\": \"shiza\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,11 +129,21 @@
 				{
 					"name": "getcardinfo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2\r\n}",
+							"raw": "{\r\n    \"id\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,12 +151,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/card/getcard",
+							"raw": "http://localhost:8081/card/getcard",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"card",
 								"getcard"
@@ -117,7 +173,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4MzE1MTEzOSwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAwOTU1MTEzOH0.u8i3NL-v3llaFed49kLDXD5yHm7mNCzSHq1cg-Eafzsuj-SXTWxsazQSJWlD1MoRnhSEoIaVCKUoYcjBD3wBfg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -156,7 +212,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4MzE1MTEzOSwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAwOTU1MTEzOH0.u8i3NL-v3llaFed49kLDXD5yHm7mNCzSHq1cg-Eafzsuj-SXTWxsazQSJWlD1MoRnhSEoIaVCKUoYcjBD3wBfg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -190,8 +246,27 @@
 				{
 					"name": "getallanswer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8081/card/getallanswer",
 							"protocol": "http",
@@ -210,15 +285,34 @@
 				{
 					"name": "newvalue",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\": 2,\r\n    \"value\": \"45\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/card/newvalue",
+							"raw": "http://localhost:8081/card/newvalue",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"card",
 								"newvalue"
@@ -240,7 +334,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4NDQ2ODY5OCwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAxMDg2ODY5OH0.HDoarp8RF04uNAyZWIkWu3XEpFwiEIJvzaAnOqgSohNlKcXq5fuCerhN3I43NXovoPkiR9GHEymoxAe782N91A",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -279,7 +373,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4NDQ2ODY5OCwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAxMDg2ODY5OH0.HDoarp8RF04uNAyZWIkWu3XEpFwiEIJvzaAnOqgSohNlKcXq5fuCerhN3I43NXovoPkiR9GHEymoxAe782N91A",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -318,7 +412,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4NDQ2ODY5OCwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAxMDg2ODY5OH0.HDoarp8RF04uNAyZWIkWu3XEpFwiEIJvzaAnOqgSohNlKcXq5fuCerhN3I43NXovoPkiR9GHEymoxAe782N91A",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -357,7 +451,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4NDQ2ODY5OCwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAxMDg2ODY5OH0.HDoarp8RF04uNAyZWIkWu3XEpFwiEIJvzaAnOqgSohNlKcXq5fuCerhN3I43NXovoPkiR9GHEymoxAe782N91A",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -366,7 +460,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Измерить температуру\",\r\n    \"contactingId\": \"8\",\r\n    \"min\": 34,\r\n    \"max\": 40,\r\n    \"type\": \"NumberField\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Измерить температуру\",\r\n    \"contactingId\": 8,\r\n    \"min\": 34,\r\n    \"max\": 40,\r\n    \"type\": \"NumberField\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,7 +468,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/doctor/getmessage",
+							"raw": "http://localhost:8081/doctor/sendcard",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -382,7 +476,7 @@
 							"port": "8081",
 							"path": [
 								"doctor",
-								"getmessage"
+								"sendcard"
 							]
 						}
 					},
@@ -396,8 +490,27 @@
 				{
 					"name": "info",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8081/patient/info",
 							"protocol": "http",
@@ -416,8 +529,27 @@
 				{
 					"name": "setvalue",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patientId\": 1,\r\n    \"growth\": 175,\r\n    \"weight\": 74\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8081/patient/setvalue",
 							"protocol": "http",
@@ -441,7 +573,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMjY4NTIyNDYyMSwidXNlcklEIjoxLCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0g0JDQu9C10LrRgdCw0L3QtNGA0L7QstC40YciLCJ0b2tlbl9jcmVhdGVfZGF0ZSI6MTY1NzAxMTYyNDYyMX0.OqI4-22Jyt5ZIrALRCPNsHctNyWLwykqNBp0omE36orOgr34SvsT1PqkAPuxbwon8zWr0QBZ29__BIeUu-tEhg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
