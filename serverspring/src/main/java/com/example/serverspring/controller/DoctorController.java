@@ -3,7 +3,7 @@ package com.example.serverspring.controller;
 import com.example.serverspring.entity.ContactingADoctor;
 import com.example.serverspring.entity.Doctor;
 import com.example.serverspring.entity.UserToken;
-import com.example.serverspring.exception.NotFoundException;
+import com.example.serverspring.exception.TokenException;
 import com.example.serverspring.models.AnswerCardModel;
 import com.example.serverspring.models.MessageModel;
 import com.example.serverspring.models.NewCardModel;
@@ -41,7 +41,7 @@ public class DoctorController {
     CardService cardService;
 
     @PostMapping(path = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Doctor> getAll(@RequestHeader(required = false, value = "Authorization")String token) {
+    public List<Doctor> getAll(@RequestHeader(required = false, value = "Authorization")String token) throws TokenException {
         for (UserToken ut : tokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.decodeTokenDate(token));
@@ -49,10 +49,10 @@ public class DoctorController {
                 return doctorRepository.findAll();
             }
         }
-        throw new NotFoundException();
+        throw new TokenException();
     }
     @PostMapping(path = "/getallmessage", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<AnswerCardModel> getAllMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated Doctor doctor) {
+    public List<AnswerCardModel> getAllMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated Doctor doctor) throws TokenException {
         for (UserToken ut : tokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.decodeTokenDate(token));
@@ -60,10 +60,10 @@ public class DoctorController {
                 return doctorService.getAllMessage(doctor.getId());
             }
         }
-        throw new NotFoundException();
+        throw new TokenException();
     }
     @PostMapping(path = "/getmessage", produces = MediaType.APPLICATION_JSON_VALUE)
-    public MessageModel getMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated ContactingADoctor contactingADoctor) {
+    public MessageModel getMessage(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated ContactingADoctor contactingADoctor) throws TokenException {
         for (UserToken ut : tokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.decodeTokenDate(token));
@@ -71,7 +71,7 @@ public class DoctorController {
                 return contactingADoctorService.getMessage(contactingADoctorRepository.getById(contactingADoctor.getId()));
             }
         }
-        throw new NotFoundException();
+        throw new TokenException();
     }
 
     @PostMapping(path = "/sendcard", produces = MediaType.APPLICATION_JSON_VALUE)

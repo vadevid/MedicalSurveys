@@ -2,6 +2,7 @@ package com.example.serverspring.controller;
 
 import com.example.serverspring.entity.Patient;
 import com.example.serverspring.entity.UserToken;
+import com.example.serverspring.exception.TokenException;
 import com.example.serverspring.models.ContactingADoctorModel;
 import com.example.serverspring.models.DefaultValueModel;
 import com.example.serverspring.models.PatientInfoModel;
@@ -41,7 +42,7 @@ public class PatientController {
 
 
     @PostMapping(path = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PatientInfoModel PatientIfo(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated Patient patient) {
+    public PatientInfoModel PatientIfo(@RequestHeader(required = false, value = "Authorization")String token, @RequestBody @Validated Patient patient) throws TokenException {
         for (UserToken ut : tokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.decodeTokenDate(token));
@@ -49,7 +50,7 @@ public class PatientController {
                 return patientService.patientInfo(patient);
             }
         }
-        return null;
+        throw new TokenException();
     }
 
     @PostMapping(path = "/setvalue", produces = MediaType.APPLICATION_JSON_VALUE)
