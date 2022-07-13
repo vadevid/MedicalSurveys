@@ -66,13 +66,13 @@ public class AuthenticationService {
         try {
             Patient tmp = patientRepository.getByLogin(patient.getLogin());
             if (tmp.getPassword().equals(Hashing.sha256().hashString(patient.getPassword(), StandardCharsets.UTF_8).toString())) {
-                tokenData.put("clientType", "user");
-                tokenData.put("userID", tmp.getId());
-                tokenData.put("username", tmp.getFIO());
-                tokenData.put("token_create_date", new Date().getTime());
+                tokenData.put(TokenModel.TYPE.getText(), "user");
+                tokenData.put(TokenModel.ID.getText(), tmp.getId());
+                tokenData.put(TokenModel.NAME.getText(), tmp.getFIO());
+                tokenData.put(TokenModel.CREATE.getText(), new Date().getTime());
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, 100);
-                tokenData.put("token_expiration_date", calendar.getTime());
+                tokenData.put(TokenModel.EXPIRATION.getText(), calendar.getTime());
                 JwtBuilder jwtBuilder = Jwts.builder();
                 jwtBuilder.setExpiration(calendar.getTime());
                 jwtBuilder.setClaims(tokenData);
