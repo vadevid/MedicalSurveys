@@ -200,7 +200,7 @@ const routes: Routes = [
     MatTableModule,
     GoogleChartsModule,
     MatSlideToggleModule,
-    MatRadioModule,
+    MatRadioModule
   ],
   providers: [
     {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}
