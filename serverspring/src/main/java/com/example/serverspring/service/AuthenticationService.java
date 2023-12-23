@@ -42,7 +42,7 @@ public class AuthenticationService {
 
     public boolean save(PatientModel patient) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             Patient repoPatient = Patient.builder().secondName(patient.getSecondName())
                     .firstName(patient.getFirstName())
                     .middleName(patient.getMiddleName())
