@@ -55,7 +55,7 @@ class AuthenticationServiceTest {
     void save() {
         PatientModel patient = new PatientModel("Силицын", "Кирилл", "Кириллович",
                 "kir", "asd",
-                "03.02.2002", "kir@mail.ru",  "М");
+                "03/02/2002", "kir@mail.ru",  "М");
         Assertions.assertTrue(authenticationService.save(patient));
     }
 
