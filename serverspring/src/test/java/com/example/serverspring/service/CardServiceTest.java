@@ -42,7 +42,7 @@ class CardServiceTest {
                 "Александрович", "doctor1",
                 "771d940635373649631e01e04fb257097e8f22a8118a51891fd606b979748ae5", "Терапевт");
         List<Card> list = new ArrayList<>();
-        list.add(new Card(5, "Общее состояние", patient, doctor, "TextField"));
+        list.add(Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build());
         Mockito.doReturn(list).when(cardRepository).findAllByPatientId(1);
         Assertions.assertEquals(cardService.findAllByPatientId(1).size(), 1);
     }
@@ -57,7 +57,7 @@ class CardServiceTest {
                 "Александрович", "doctor1",
                 "771d940635373649631e01e04fb257097e8f22a8118a51891fd606b979748ae5", "Терапевт");
         List<Card> list = new ArrayList<>();
-        list.add(new Card(5, "Общее состояние", patient, doctor, "TextField"));
+        list.add(Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build());
         Mockito.doReturn(list).when(cardRepository).findAllByDoctorId(1);
         Assertions.assertEquals(cardService.findAllByDoctorId(1).size(), 1);
     }
@@ -71,7 +71,7 @@ class CardServiceTest {
         Doctor doctor = new Doctor(1, "Винилов", "Андрей",
                 "Александрович", "doctor1",
                 "771d940635373649631e01e04fb257097e8f22a8118a51891fd606b979748ae5", "Терапевт");
-        Card card = new Card(5, "Общее состояние", patient, doctor, "TextField");
+        Card card = Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build();
         Mockito.doReturn(card).when(cardRepository).getById(5);
         Assertions.assertEquals(cardService.getById(5).getName(), "Общее состояние");
     }
@@ -87,7 +87,7 @@ class CardServiceTest {
 
     @Test
     void newvalue() {
-        Assertions.assertTrue(cardService.newvalue(new NewCardAnswerModel(2, "45")));
+        Assertions.assertTrue(cardService.newValue(new NewCardAnswerModel(2, "45")));
     }
 
     @Test

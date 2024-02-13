@@ -32,7 +32,7 @@ class AuthenticationServiceTest {
 
     @Test
     void login() {
-        Patient patient = new Patient("vadevid", "password");
+        Patient patient = Patient.builder().login("vadevid").password("password").build();
         Patient returnPatient = new Patient(1, "Кислицын", "Иван",
                 "Александрович", "kislitsun-van@mail.ru", "vadevid",
                 "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
@@ -43,7 +43,7 @@ class AuthenticationServiceTest {
 
     @Test
     void loginDoctor() {
-        Doctor doctor = new Doctor("doctor1", "shiza");
+        Doctor doctor = Doctor.builder().login("doctor1").password("shiza").build();
         Doctor returnDoctor = new Doctor(1, "Винилов", "Андрей",
                 "Александрович", "doctor1",
                 "771d940635373649631e01e04fb257097e8f22a8118a51891fd606b979748ae5", "Терапевт");
