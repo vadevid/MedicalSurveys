@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/doctor")
 public class DoctorController {
     @Autowired
