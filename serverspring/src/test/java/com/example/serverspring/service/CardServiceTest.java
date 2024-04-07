@@ -1,8 +1,7 @@
 package com.example.serverspring.service;
 
 import com.example.serverspring.entity.*;
-import com.example.serverspring.models.NewCardAnswerModel;
-import com.example.serverspring.models.NewCardModel;
+import com.example.serverspring.models.*;
 import com.example.serverspring.repository.CardAnswerRepository;
 import com.example.serverspring.repository.CardRepository;
 import com.example.serverspring.repository.ContactingADoctorRepository;
@@ -18,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,7 +45,12 @@ class CardServiceTest {
         List<Card> list = new ArrayList<>();
         list.add(Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build());
         Mockito.doReturn(list).when(cardRepository).findAllByPatientId(1);
-        Assertions.assertEquals(cardService.findAllByPatientId(1).size(), 1);
+        List<CardModel> result = cardService.findAllByPatientId(1);
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getId(), 5);
+        assertEquals(result.get(0).getName(), "Общее состояние");
+        assertEquals(result.get(0).getDoctorType(), "Терапевт");
+        assertEquals(result.get(0).getDoctorName(), doctor.getFIO());
     }
 
     @Test
@@ -59,7 +65,12 @@ class CardServiceTest {
         List<Card> list = new ArrayList<>();
         list.add(Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build());
         Mockito.doReturn(list).when(cardRepository).findAllByDoctorId(1);
-        Assertions.assertEquals(cardService.findAllByDoctorId(1).size(), 1);
+        List<DoctorCardModel> result = cardService.findAllByDoctorId(1);
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getId(), 5);
+        assertEquals(result.get(0).getName(), "Общее состояние");
+        assertEquals(result.get(0).getCardType(), "TextField");
+        assertEquals(result.get(0).getPatientName(), patient.getFIO());
     }
 
     @Test
@@ -73,7 +84,7 @@ class CardServiceTest {
                 "771d940635373649631e01e04fb257097e8f22a8118a51891fd606b979748ae5", "Терапевт");
         Card card = Card.builder().id(5).name("Общее состояние").patient(patient).doctor(doctor).type("TextField").build();
         Mockito.doReturn(card).when(cardRepository).getById(5);
-        Assertions.assertEquals(cardService.getById(5).getName(), "Общее состояние");
+        assertEquals(cardService.getById(5).getName(), "Общее состояние");
     }
 
     @Test
@@ -82,11 +93,16 @@ class CardServiceTest {
         Card card = new Card(7, "Частота дыхательных движений", new Patient(), new Doctor(), "NumberField", 10.0, 30.0);
         cardAnswers.add(new CardAnswer(card, "15"));
         Mockito.doReturn(cardAnswers).when(cardAnswerRepository).findAllByCardIdOrderByAnswerDate(card.getId());
-        Assertions.assertEquals(1, cardService.getAllAnswer(card.getId()).size());
+        List<CardAnswerModel> result = cardService.getAllAnswer(card.getId());
+        assertEquals(1, result.size());
+        assertEquals("15", result.get(0).getAnswer());
+        assertEquals(10, result.get(0).getMinValue());
+        assertEquals(30, result.get(0).getMaxValue());
+        assertEquals("Частота дыхательных движений", result.get(0).getValueName());
     }
 
     @Test
-    void newvalue() {
+    void newValue() {
         Assertions.assertTrue(cardService.newValue(new NewCardAnswerModel(2, "45")));
     }
 

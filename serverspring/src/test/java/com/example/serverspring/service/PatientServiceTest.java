@@ -16,17 +16,4 @@ class PatientServiceTest {
     @Autowired
     PatientService patientService;
 
-    @Test
-    void patientinfo() {
-        Patient patient = Patient.builder().id(1).build();
-        PatientInfoModel result = patientService.patientInfo(patient);
-    }
-
-    @Test
-    void setdefaultvalue() {
-    }
-
-    @Test
-    void findByLogin() {
-    }
 }
