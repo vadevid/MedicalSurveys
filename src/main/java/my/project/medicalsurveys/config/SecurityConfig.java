@@ -26,11 +26,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(item ->
-                        item.requestMatchers("/auth/**").permitAll()
+                        item
                                 .requestMatchers("/patient/**").hasAuthority(Role.PATIENT_ROLE.name())
                                 .requestMatchers("/doctor/**").hasAuthority(Role.DOCTOR_ROLE.name())
+                                .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(item -> item.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,4 +1,4 @@
-package my.project.medicalsurveys.model.response.auth;
+package my.project.medicalsurveys.model.response;
 
 public class AuthenticationResponse {
     private String token;

@@ -1,4 +1,4 @@
-package my.project.medicalsurveys.model.response.patient;
+package my.project.medicalsurveys.model.response;
 
 public class PatientInfoModel {
     private String fio;

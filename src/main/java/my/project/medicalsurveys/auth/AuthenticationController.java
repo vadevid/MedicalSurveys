@@ -3,16 +3,14 @@ package my.project.medicalsurveys.auth;
 import my.project.medicalsurveys.model.request.LoginRequest;
 import my.project.medicalsurveys.model.request.RegisterDoctorRequest;
 import my.project.medicalsurveys.model.request.RegisterPatientRequest;
-import my.project.medicalsurveys.model.response.auth.AuthenticationResponse;
-import my.project.medicalsurveys.model.response.auth.LoginResponse;
+import my.project.medicalsurveys.model.response.AuthenticationResponse;
+import my.project.medicalsurveys.model.response.LoginResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthenticationController {
     private final AuthenticationService service;
 
