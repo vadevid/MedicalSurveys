@@ -74,6 +74,14 @@ import { DoctorContactingInfoComponent } from './doctor/doctor-contacting/doctor
 import { DoctorAnswerPageComponent } from './doctor/doctor-contacting/doctor-answer-page/doctor-answer-page.component';
 import { DoctorAnswerPageNavComponent } from './doctor/doctor-contacting/doctor-answer-page/doctor-answer-page-nav/doctor-answer-page-nav.component';
 import { DoctorAnswerPageDashboardComponent } from './doctor/doctor-contacting/doctor-answer-page/doctor-answer-page-dashboard/doctor-answer-page-dashboard.component';
+import { LearnComponent } from './patient/learn/learn.component';
+import { LearnNavComponent } from './patient/learn/learn-nav/learn-nav.component';
+import { LearnDashboardComponent } from './patient/learn/learn-dashboard/learn-dashboard.component';
+import { FirstLearnComponent } from './patient/learn/first-learn/first-learn.component';
+import { SecondLearnComponent } from './patient/learn/second-learn/second-learn.component';
+import { ThirdLearnComponent } from './patient/learn/third-learn/third-learn.component';
+import { LearnContactingNavComponent } from './patient/learn/first-learn/learn-contacting-nav/learn-contacting-nav.component';
+import { LearnContactingDashboardComponent } from './patient/learn/first-learn/learn-contacting-nav/learn-contacting-dashboard/learn-contacting-dashboard.component';
 
 const routes: Routes = [
   {
@@ -120,6 +128,22 @@ const routes: Routes = [
   {
     path: 'doctorcardpage',
     component: DoctorCardPageComponent
+  },
+  {
+    path: 'learn',
+    component: LearnComponent
+  },
+  {
+    path: 'lesson/1',
+    component: FirstLearnComponent
+  },
+  {
+    path: 'lesson/2',
+    component: SecondLearnComponent
+  },
+  {
+    path: 'lesson/3',
+    component: ThirdLearnComponent
   }
 ];
 
@@ -155,6 +179,14 @@ const routes: Routes = [
     DoctorAnswerPageComponent,
     DoctorAnswerPageNavComponent,
     DoctorAnswerPageDashboardComponent,
+    LearnComponent,
+    LearnNavComponent,
+    LearnDashboardComponent,
+    FirstLearnComponent,
+    SecondLearnComponent,
+    ThirdLearnComponent,
+    LearnContactingNavComponent,
+    LearnContactingDashboardComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),

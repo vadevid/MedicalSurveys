@@ -4,9 +4,6 @@
 }
 
 .constValues {
-  border: 2px solid #3f51b5;
-  border-radius: 10px;
-  padding: 8px;
   display: flex;
   flex-direction: column;
   margin-bottom: 6px;
@@ -25,4 +22,19 @@
   display: flex;
   flex-direction: column;
   margin: 3px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #3f51b5;
+  border-radius: 10px;
+  padding: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.learnBtn {
+  margin-right: 3%;
+  padding: 3px 10px;
 }

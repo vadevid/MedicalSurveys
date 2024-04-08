@@ -1,16 +1,19 @@
 <div class="dialogDiv">
-  <div class="constValues">
-    <h1>Профиль</h1>
-    <span>{{fio}}</span>
-    <span>Пол: {{sex}}</span>
-    <span>Возраст: {{age}} лет</span>
+  <div class="header">
+    <div class="constValues">
+      <h1>Профиль</h1>
+      <span>{{ fio }}</span>
+      <span>Пол: {{ sex }}</span>
+      <span>Возраст: {{ age }} лет</span>
+    </div>
+    <button class="learnBtn" mat-raised-button color="primary" (click)="GoToLearn()">Обучение</button>
   </div>
   <div class="varValues">
     <div class="blockValues">
       <h1>Текущие значения</h1>
-      <span>Рост: {{growth}} см</span>
-      <span>Вес: {{weight}} кг</span>
-      <span>Индекс массы тела: {{mass_index}}({{mass_index_status}})</span>
+      <span>Рост: {{ growth }} см</span>
+      <span>Вес: {{ weight }} кг</span>
+      <span>Индекс массы тела: {{ mass_index }}({{ mass_index_status }})</span>
     </div>
     <div class="blockValues">
       <h1>Новые значения</h1>

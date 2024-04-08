@@ -53,29 +53,28 @@ export class ProfileDialogComponent implements OnInit {
   }
 
   async getPatientInfo(userid: number) {
-    await axios.post('http://localhost:8080/patient/info', {
+    await axios.post('/api/patient/info', {
       "id": userid
     }, {
       headers: {
         'Authorization': `Bearer ${this.token}`
       }
-    }).then((responce) => {
-      this.fio = responce.data.fio;
-      this.age = responce.data.age;
-      this.sex = responce.data.sex == "М" ? "Мужской" : "Женский";
-      this.growth = responce.data.growth;
-      this.weight = responce.data.weight;
-      this.mass_index = responce.data.mass_index == "NaN" ? 0: responce.data.mass_index.substring(0, 4);
-      if (Number(responce.data.mass_index.substring(0,3)) < 18.5) this.mass_index_status = "Недостаточная масса тела";
-      if (Number(responce.data.mass_index.substring(0,3)) > 18.5 && Number(responce.data.mass_index.substring(0,3)) < 25) this.mass_index_status = "Норма";
-      if (Number(responce.data.mass_index.substring(0,3)) > 25 && Number(responce.data.mass_index.substring(0,3)) < 30) this.mass_index_status = "Избыточная масса тела";
-      if (Number(responce.data.mass_index.substring(0,3)) > 30) this.mass_index_status = "Ожирение";
+    }).then((response) => {
+      console.log(response)
+      this.fio = response.data.fio;
+      this.age = response.data.age;
+      this.sex = response.data.sex == "М" ? "Мужской" : "Женский";
+      this.growth = response.data.growth;
+      this.weight = response.data.weight;
+      this.mass_index = response.data.massIndex;
+      if (Number(this.mass_index) < 18.5) this.mass_index_status = "Недостаточная масса тела";
+      if (Number(this.mass_index) > 18.5 && Number(this.mass_index) < 25) this.mass_index_status = "Норма";
+      if (Number(this.mass_index) > 25 && Number(this.mass_index) < 30) this.mass_index_status = "Избыточная масса тела";
+      if (Number(this.mass_index) > 30) this.mass_index_status = "Ожирение";
     })
   }
 
   async SendNewDefaultValue() {
-    console.log(this.growthNew);
-    console.log(this.weightNew);
     await axios.post('http://localhost:8080/patient/setvalue', {
       patientId: this.userId,
       growth: this.growthNew,
@@ -89,6 +88,11 @@ export class ProfileDialogComponent implements OnInit {
       else prompt("Отправка не удалась")
       }
     )
+  }
+
+  GoToLearn() {
+    this.dialog.closeAll();
+    this.router.navigate(['learn'])
   }
 
 }

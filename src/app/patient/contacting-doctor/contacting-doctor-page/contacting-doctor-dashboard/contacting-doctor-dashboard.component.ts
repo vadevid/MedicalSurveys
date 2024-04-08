@@ -20,7 +20,7 @@ export class ContactingDoctorDashboardComponent implements OnInit {
   }
 
   async SendMessage() {
-    await axios.post("http://localhost:8080/patient/sendmessage", {
+    await axios.post("/api/patient/sendMessage", {
       patientId: this.userId,
       doctorId: this.doctorId,
       message: this.textValue

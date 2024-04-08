@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Inject, Input, OnInit} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
-import {ProfileDialogComponent} from "../../profile-dialog/profile-dialog.component";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {map, shareReplay} from "rxjs/operators";
+import {ProfileDialogComponent} from "../../profile-dialog/profile-dialog.component";
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  selector: 'app-learn-nav',
+  templateUrl: './learn-nav.component.html',
+  styleUrls: ['./learn-nav.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class LearnNavComponent implements OnInit {
 
   @Input()
   userid: number;
@@ -33,7 +33,7 @@ export class NavBarComponent implements OnInit {
     this.router = router;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.userid == 0) {
       this.router.navigate(['/login']);
     }
@@ -48,4 +48,5 @@ export class NavBarComponent implements OnInit {
       }
     })
   }
+
 }

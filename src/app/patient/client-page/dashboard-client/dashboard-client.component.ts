@@ -38,7 +38,6 @@ export class DashboardClientComponent implements OnInit{
       this.cards = response.data;
       this.cardLength = this.cards.length;
       this.pagedList = this.cards.slice(0, 6)
-      console.log(this.cards);
       }
     )
   }

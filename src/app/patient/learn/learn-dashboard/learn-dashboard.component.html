@@ -1,0 +1,12 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Обучение</h1>
+  <div class="learnBtns" *ngIf="modules != null">
+    <ng-container *ngFor="let module of modules">
+      <div class="learnBtnContainer">
+        <button class="learnBtn" [routerLink]="['/lesson/' + module.id]" mat-raised-button color="primary">{{module.title}}</button>
+        <div *ngIf="module.active">
+          <div class="active"> </div>
+        </div>
+      </div>
+    </ng-container>
+</div>

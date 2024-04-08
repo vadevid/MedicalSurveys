@@ -20,7 +20,6 @@ export class DoctorCardPageInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.LoadCardInfo(this.cardid);
-    console.log(this.cardInfo)
   }
   async LoadCardInfo(id: number) {
     await axios.post("http://localhost:8080/card/getcard", {

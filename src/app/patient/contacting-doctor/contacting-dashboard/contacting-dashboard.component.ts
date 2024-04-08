@@ -34,7 +34,7 @@ export class ContactingDashboardComponent implements OnInit {
     this.LoadDoctors();
   }
   async LoadDoctors() {
-    await axios.post("http://localhost:8080/doctor/getall", {},{
+    await axios.post("/api/patient/findAllDoctor", {},{
       headers: {
         'Authorization': `Bearer ${this.token}`
       }

@@ -10,7 +10,6 @@ import {MatDatepicker} from "@angular/material/datepicker";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  router: Router;
   login: string;
   pass: string;
   secondName: string;
@@ -22,15 +21,21 @@ export class RegisterComponent implements OnInit {
   woman: boolean = false;
   email: string;
   sex: string;
+  router: Router;
   constructor(@Inject(Router) router: Router) {
     this.router = router;
   }
   OnDateChange(date: unknown) {
     this.dateOfBirthField = date;
     var month;
+    var day;
     if (this.dateOfBirthField.getMonth()+1 < 10) month = "0"+(this.dateOfBirthField.getMonth()+1)
     else month = (this.dateOfBirthField.getMonth()+1)
-    this.dateOfBirth = this.dateOfBirthField.getDate()+"."+month+"."+this.dateOfBirthField.getFullYear();
+
+    if (this.dateOfBirthField.getDate() < 10) day = "0"+(this.dateOfBirthField.getDate())
+    else day = (this.dateOfBirthField.getDate())
+
+    this.dateOfBirth = day+"."+month+"."+this.dateOfBirthField.getFullYear();
   }
 
   async RegisterBtn() {
