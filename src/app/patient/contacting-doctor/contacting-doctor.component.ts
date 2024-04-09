@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {tokenSelector, userSelector} from "../../store/user.selectors";
 import {UserState} from "../../store/user.reducer";
-import {UserSyncStorageService} from "../../service/user-sync-storage.service";
 import {ContactingNavComponent} from "./contacting-nav/contacting-nav.component";
 import {RouterOutlet} from "@angular/router";
 import {AsyncPipe} from "@angular/common";
+import {selectToken, selectUserId} from "../../store/user.selectors";
 
 @Component({
   selector: 'app-contacting-doctor',
@@ -21,14 +20,15 @@ import {AsyncPipe} from "@angular/common";
   ]
 })
 export class ContactingDoctorComponent implements OnInit {
-  userId: Observable<number | undefined> = this.store$.pipe(select(userSelector));
-  token: Observable<string | undefined> = this.store$.pipe(select(tokenSelector));
+  userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
+  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+
   constructor(
     private store$: Store<UserState>,
-    private userSyncStorage: UserSyncStorageService) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.userSyncStorage.init();
   }
 
 }

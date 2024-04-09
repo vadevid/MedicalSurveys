@@ -1,35 +1,21 @@
-import {UserActions, userActionsType} from "./user.actions";
+import { createReducer, on } from '@ngrx/store';
+import * as UserActions from './user.actions';
 
 export const USER_REDUCER_NODE = 'user';
 
 export interface UserState {
   userid: number | undefined;
-  token: string | undefined;
+  token: string | undefined | null;
 }
 
 const initialState: UserState = {
   userid: 0,
-  token: ""
-}
+  token: ''
+};
 
-export const userReducer = (state = initialState, action: UserActions) => {
-  switch (action.type) {
-    case userActionsType.login:
-      return {
-        ...state,
-        userid: action.payload.userid,
-        token: action.payload.token
-      }
-    case userActionsType.load:
-      return {
-        ...action.payload.state
-      }
-    case userActionsType.logout:
-      return {
-        ...state,
-        userid: 0
-      }
-    default:
-      return state
-  }
-}
+export const userReducer = createReducer(
+  initialState,
+  on(UserActions.login, (state, { userid, token }) => ({ ...state, userid, token })),
+  on(UserActions.load, (state, { state: newState }) => newState),
+  on(UserActions.logout, state => ({ ...state, userid: 0 }))
+);

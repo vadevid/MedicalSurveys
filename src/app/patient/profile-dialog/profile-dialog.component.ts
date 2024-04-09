@@ -4,14 +4,13 @@ import {NavBarComponent} from "../client-page/nav-bar/nav-bar.component";
 import {select, Store} from "@ngrx/store";
 import {UserState} from "../../store/user.reducer";
 import {Observable} from "rxjs";
-import {userSelector} from "../../store/user.selectors";
-import {UserLogoutAction} from "../../store/user.actions";
 import {Router} from "@angular/router";
 import axios from "axios";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
+import {logout} from "../../store/user.actions";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -57,7 +56,7 @@ export class ProfileDialogComponent implements OnInit {
     this.router.navigate(['login']);
   }
   OnLogoutDispatch(userid: number) {
-    this.store$.dispatch(new UserLogoutAction({userid}))
+    this.store$.dispatch(logout({userid}))
   }
 
   ngOnInit(): void {

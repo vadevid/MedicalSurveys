@@ -3,12 +3,11 @@ import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router"
 import axios from "axios";
 import {Store} from "@ngrx/store";
 import {UserState} from "../store/user.reducer";
-import {UserLoginAction} from "../store/user.actions";
-import {UserSyncStorageService} from "../service/user-sync-storage.service";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import {login} from "../store/user.actions";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +20,9 @@ import {FormsModule} from "@angular/forms";
     RouterLink,
     MatButton,
     RouterOutlet,
-    MatLabel
+    MatLabel,
+    MatFormField,
+    MatInput
   ],
   standalone: true
 })
@@ -38,8 +39,7 @@ export class LoginComponent implements OnInit {
 
   constructor(router: Router,
               route: ActivatedRoute,
-              private store$: Store<UserState>,
-              private userSyncStorage: UserSyncStorageService) {
+              private store$: Store<UserState>) {
     this.routing = router;
     this.route = route;
     this.login = this.route.snapshot.paramMap.get('login')!;
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginDispatch(userid: number | undefined, token: string | null | undefined) {
-    this.store$.dispatch(new UserLoginAction({userid, token}))
+    this.store$.dispatch(login({userid, token}))
   }
 
   async LoginBtn() {
@@ -83,6 +83,5 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userSyncStorage.init();
   }
 }

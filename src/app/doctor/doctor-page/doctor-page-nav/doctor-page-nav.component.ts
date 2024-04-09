@@ -2,7 +2,6 @@ import {Component, EventEmitter, Inject, Input, numberAttribute, OnInit} from '@
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
-import {UserLogoutAction} from "../../../store/user.actions";
 import {Store} from "@ngrx/store";
 import {UserState} from "../../../store/user.reducer";
 import {Router, RouterLink} from "@angular/router";
@@ -13,6 +12,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MatAnchor, MatIconButton} from "@angular/material/button";
+import {logout} from "../../../store/user.actions";
 
 @Component({
   selector: 'app-doctor-page-nav',
@@ -63,7 +63,7 @@ export class DoctorPageNavComponent implements OnInit {
     this.router.navigate(['login']);
   }
   LogoutDispatch(userid: number) {
-    this.store$.dispatch(new UserLogoutAction({userid}))
+    this.store$.dispatch(logout({userid}))
   }
   ngOnInit(): void {
   }

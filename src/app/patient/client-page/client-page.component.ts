@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {UserState} from "../../store/user.reducer";
-import {tokenSelector, userSelector} from "../../store/user.selectors";
 import {Observable} from "rxjs";
-import {UserSyncStorageService} from "../../service/user-sync-storage.service";
 import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {RouterOutlet} from "@angular/router";
 import {AsyncPipe} from "@angular/common";
+import {selectToken, selectUserId} from "../../store/user.selectors";
 
 @Component({
   selector: 'app-client-page',
@@ -22,16 +21,14 @@ import {AsyncPipe} from "@angular/common";
 })
 export class ClientPageComponent implements OnInit {
 
-  userId: Observable<number | undefined> = this.store$.pipe(select(userSelector));
-  token: Observable<string | undefined> = this.store$.pipe(select(tokenSelector));
+  userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
+  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
 
   constructor(
-    private store$: Store<UserState>,
-    private userSyncStorage: UserSyncStorageService
+    private store$: Store<UserState>
   ) { }
 
   ngOnInit(): void {
-    this.userSyncStorage.init();
   }
 
 }

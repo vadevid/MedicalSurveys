@@ -5,7 +5,6 @@ import {map, shareReplay} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {UserState} from "../../../../store/user.reducer";
 import {Router, RouterLink} from "@angular/router";
-import {UserLogoutAction} from "../../../../store/user.actions";
 import {
   DoctorAnswerPageDashboardComponent
 } from "../doctor-answer-page-dashboard/doctor-answer-page-dashboard.component";
@@ -15,6 +14,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {MatIcon} from "@angular/material/icon";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MatAnchor, MatIconButton} from "@angular/material/button";
+import {logout} from "../../../../store/user.actions";
 
 @Component({
   selector: 'app-doctor-answer-page-nav',
@@ -68,7 +68,7 @@ export class DoctorAnswerPageNavComponent implements OnInit {
     this.router.navigate(['login']);
   }
   LogoutDispatch(userid: number) {
-    this.store$.dispatch(new UserLogoutAction({userid}))
+    this.store$.dispatch(logout({userid}))
   }
 
 }
