@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
@@ -9,6 +9,7 @@ import {MatIcon} from "@angular/material/icon";
 import {LearnContactingDashboardComponent} from "./learn-contacting-dashboard/learn-contacting-dashboard.component";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {LearnServiceService} from "../../../../service/learn-service.service";
 
 @Component({
   selector: 'app-learn-contacting-nav',
@@ -42,5 +43,14 @@ export class LearnContactingNavComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
+
+  @Input() service: LearnServiceService | undefined;
+
+
+  @Output() changeStepEvent = new EventEmitter<boolean>;
+
+  changeStep(newValue: boolean) {
+    this.changeStepEvent.emit(newValue);
+  }
 
 }

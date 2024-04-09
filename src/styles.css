@@ -15,3 +15,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+.introjs-overlay{
+  pointer-events: none;
+}
+
+.introjs-helperLayer{
+  pointer-events: none;
+}

@@ -11,7 +11,7 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <span class="doctorName">Имя: {{ doctor.secondName }}  {{ doctor.firstName }} {{ doctor.middleName }}</span>
-          <a mat-raised-button color="primary" class="more-button">
+          <a mat-raised-button color="primary" class="more-button" (click)="changeStep()">
             Обратиться
           </a>
         </mat-card-content>

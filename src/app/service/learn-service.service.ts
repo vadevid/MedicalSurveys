@@ -13,16 +13,33 @@ export class LearnServiceService {
       {
         element: '#doctorList',
         intro: 'Это список врачей',
-        position: "bottom-middle-aligned"
+        position: "bottom-middle-aligned",
+        disableInteraction: true
       },
       {
         element: '#paging',
         intro: 'Список можно переключать',
-        position: "top-middle-aligned"
+        position: "top-middle-aligned",
+        disableInteraction: true
       },
       {
         element: '#confirm',
         intro: 'Давайте выберем этого врача',
+        position: "right"
+      },
+      {
+        element: '#pageLearn',
+        intro: 'Это страница заполнения запроса',
+        position: "bottom",
+      },
+      {
+        element: '#inputLearn',
+        intro: 'Здесь заполняются данные',
+        position: "right"
+      },
+      {
+        element: '#finishButton',
+        intro: 'Нажав на эту кнопку будет произведена отправка запроса',
         position: "right"
       },
     ],
@@ -37,14 +54,24 @@ export class LearnServiceService {
   }).onbeforechange(async () => {
     return new Promise((resolve) => {
       console.log('Performing I/O...');
-      setInterval(resolve, 100);
+      setInterval(resolve, 200);
     });
   })
+
+  private _firstStep = true;
 
   constructor() { }
 
 
   get steps(): IntroJs {
     return this._steps;
+  }
+
+  get firstStep(): boolean {
+    return this._firstStep;
+  }
+
+  set firstStep(value: boolean) {
+    this._firstStep = value;
   }
 }

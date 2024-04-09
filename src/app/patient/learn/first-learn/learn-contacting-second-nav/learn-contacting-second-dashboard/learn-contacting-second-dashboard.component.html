@@ -1,0 +1,12 @@
+<div class="dashboard" id="pageLearn">
+  <span>Введите обращение</span>
+  <mat-form-field id="inputLearn" class="example-form-field" appearance="fill">
+    <mat-label>Сообщение</mat-label>
+    <textarea [(ngModel)]="textValue"
+              matInput
+              class="numberInput"
+              type="text"
+    ></textarea>
+  </mat-form-field>
+  <button id="finishButton" mat-raised-button color="primary" class="dashboard-button">Отправить</button>
+</div>

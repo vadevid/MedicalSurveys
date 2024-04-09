@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Doctor} from "../../../../../model/doctor";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
@@ -33,7 +33,7 @@ export class LearnContactingDashboardComponent implements OnInit, AfterViewInit 
     this.routing = router;
   }
 
-  service: LearnServiceService = new LearnServiceService();
+  @Input() service: LearnServiceService | undefined;
 
   // myDoctor: Doctor =
 
@@ -69,7 +69,7 @@ export class LearnContactingDashboardComponent implements OnInit, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.service.steps
+    this.service?.steps
       .oncomplete(() => this.complete())
       .onskip(() => this.skip())
       .start();
@@ -83,4 +83,10 @@ export class LearnContactingDashboardComponent implements OnInit, AfterViewInit 
     this.routing.navigate(['clientpage'])
   }
 
+
+  @Output() changeStepEvent = new EventEmitter<boolean>;
+
+  changeStep() {
+    this.changeStepEvent.emit(false);
+  }
 }
