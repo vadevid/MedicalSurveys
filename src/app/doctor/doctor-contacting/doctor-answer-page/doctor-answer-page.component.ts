@@ -23,7 +23,7 @@ export class DoctorAnswerPageComponent implements OnInit {
 
   answerId: number | undefined;
   userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+  token: Observable<string | undefined> = this.store$.pipe(select(selectToken));
   route: ActivatedRoute;
   constructor(
     private store$: Store<UserState>,

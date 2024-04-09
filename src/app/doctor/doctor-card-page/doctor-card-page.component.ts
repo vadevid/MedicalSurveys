@@ -21,7 +21,7 @@ import {selectToken, selectUserId} from "../../store/user.selectors";
 })
 export class DoctorCardPageComponent implements OnInit {
   userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+  token: Observable<string | undefined> = this.store$.pipe(select(selectToken));
   route: ActivatedRoute;
   cardid: number | undefined;
 

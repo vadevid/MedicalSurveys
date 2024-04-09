@@ -23,7 +23,7 @@ export class CardPageComponent implements OnInit {
   route: ActivatedRoute;
   cardid: number | undefined;
   userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+  token: Observable<string | undefined> = this.store$.pipe(select(selectToken));
 
   constructor(@Inject(Router) router: Router,
               @Inject(ActivatedRoute) route: ActivatedRoute,

@@ -39,7 +39,7 @@ export class LearnNavComponent implements OnInit {
   @Input({transform: numberAttribute})
   userid: number | undefined;
   @Input()
-  token: string | undefined | null = "";
+  token: string | undefined | null;
 
   logoutEmmit = new EventEmitter<number>();
 

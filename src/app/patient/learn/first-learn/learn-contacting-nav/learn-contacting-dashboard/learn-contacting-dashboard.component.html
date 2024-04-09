@@ -2,7 +2,7 @@
   <h1 class="mat-h1">Врачи</h1>
   <mat-grid-list cols="3" rowHeight="180px">
     <mat-grid-tile *ngFor="let doctor of pagedList" [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
+      <mat-card id="doctorList"  class="dashboard-card">
         <mat-card-header>
           <mat-card-title class="cardTitleBlock">
             <span class="cardTitle">{{doctor.type}}</span>

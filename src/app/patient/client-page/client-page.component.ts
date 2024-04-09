@@ -20,15 +20,18 @@ import {selectToken, selectUserId} from "../../store/user.selectors";
   ]
 })
 export class ClientPageComponent implements OnInit {
-
-  userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+  userId: Observable<number | undefined> | undefined;
+  token: Observable<string> | undefined;
+  da: string = ''
 
   constructor(
     private store$: Store<UserState>
   ) { }
 
   ngOnInit(): void {
+    this.userId = this.store$.pipe(select(selectUserId));
+    this.token = this.store$.pipe(select(selectToken));
+    this.token.subscribe(value => this.da = value);
   }
 
 }

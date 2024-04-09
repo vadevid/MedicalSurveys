@@ -26,7 +26,7 @@ export class LearnComponent implements OnInit {
   ) { }
 
   userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string| undefined | null> = this.store$.pipe(select(selectToken));
+  token: Observable<string| undefined> = this.store$.pipe(select(selectToken));
   ngOnInit(): void {
     // this.userSyncStorage.init();
   }

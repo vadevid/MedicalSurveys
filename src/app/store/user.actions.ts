@@ -3,7 +3,7 @@ import { UserState } from './user.reducer';
 
 export const login = createAction(
   '[USER] login user',
-  props<{ userid: number | undefined; token: string | undefined | null }>()
+  props<{ userid: number; token: string }>()
 );
 
 export const logout = createAction(

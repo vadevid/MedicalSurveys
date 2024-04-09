@@ -1,6 +1,4 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Router, RouterLink} from "@angular/router";
 import {Card} from "../../../model/card";

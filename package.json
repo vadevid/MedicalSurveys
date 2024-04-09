@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^17.1.1",
     "angular2-chartjs": "^0.5.1",
     "autoprefixer": "^10.4.19",
+    "intro.js": "^7.2.0",
     "ngx-echarts": "^17.1.0",
     "postcss": "^8.4.38",
     "rxjs": "~7.8.1",

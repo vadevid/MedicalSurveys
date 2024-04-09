@@ -35,7 +35,6 @@ export class LearnDashboardComponent implements OnInit {
   }
 
   async LoadModules() {
-    console.log(this.userId)
     await axios.post("/api/patient/getModules", {
       "id": this.userId
     }, {

@@ -71,7 +71,6 @@ export class ProfileDialogComponent implements OnInit {
         'Authorization': `Bearer ${this.token}`
       }
     }).then((response) => {
-      console.log(response)
       this.fio = response.data.fio;
       this.age = response.data.age;
       this.sex = response.data.sex == "М" ? "Мужской" : "Женский";

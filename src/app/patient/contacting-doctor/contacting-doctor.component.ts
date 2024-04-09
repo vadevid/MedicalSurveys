@@ -21,7 +21,7 @@ import {selectToken, selectUserId} from "../../store/user.selectors";
 })
 export class ContactingDoctorComponent implements OnInit {
   userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined | null> = this.store$.pipe(select(selectToken));
+  token: Observable<string | undefined> = this.store$.pipe(select(selectToken));
 
   constructor(
     private store$: Store<UserState>,

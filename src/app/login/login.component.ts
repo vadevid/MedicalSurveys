@@ -31,8 +31,8 @@ import {login} from "../store/user.actions";
 export class LoginComponent implements OnInit {
   login: string | undefined;
   pass: string | undefined;
-  userid: number | undefined;
-  token: string | undefined | null;
+  userid: number = 0;
+  token: string = '';
   role: string | undefined;
   routing: Router;
   route: ActivatedRoute;
@@ -45,18 +45,13 @@ export class LoginComponent implements OnInit {
     this.login = this.route.snapshot.paramMap.get('login')!;
   }
 
-
-  loginEmmit = new EventEmitter<number>();
-  tokenEmmit = new EventEmitter<string | undefined | null>();
-
   onLogin() {
-    this.loginEmmit.emit(this.userid);
-    this.tokenEmmit.emit(this.token);
     this.onLoginDispatch(this.userid, this.token);
   }
 
-  onLoginDispatch(userid: number | undefined, token: string | null | undefined) {
-    this.store$.dispatch(login({userid, token}))
+  onLoginDispatch(userid: number, token: string) {
+    console.log(token)
+    this.store$.dispatch(login({userid: userid, token: token}))
   }
 
   async LoginBtn() {
@@ -64,6 +59,7 @@ export class LoginComponent implements OnInit {
       "login": this.login,
       "password": this.pass
     }).then((response) => {
+      console.log(response)
       this.userid = Number(response.data.id);
       this.token = response.data.token;
       this.role = response.data.role;

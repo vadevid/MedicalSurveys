@@ -41,7 +41,8 @@ export class NavBarComponent implements OnInit {
   @Input({transform: numberAttribute})
   userid: number | undefined;
   @Input()
-  token: string | undefined | null;
+  token$: Observable<string | undefined> | undefined;
+  token: string | undefined;
 
   logoutEmmit = new EventEmitter<number>();
 
@@ -62,6 +63,8 @@ export class NavBarComponent implements OnInit {
     if (this.userid == 0) {
       this.router.navigate(['/login']);
     }
+    this.token$!.subscribe(value => this.token = value)
+    console.log(this.token)
   }
 
   openProfileDialog() {
