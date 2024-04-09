@@ -6,6 +6,7 @@ import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {RouterOutlet} from "@angular/router";
 import {AsyncPipe} from "@angular/common";
 import {selectToken, selectUserId} from "../../store/user.selectors";
+import {UserSyncStorageService} from "../../service/user-sync-storage.service";
 
 @Component({
   selector: 'app-client-page',
@@ -22,16 +23,16 @@ import {selectToken, selectUserId} from "../../store/user.selectors";
 export class ClientPageComponent implements OnInit {
   userId: Observable<number | undefined> | undefined;
   token: Observable<string> | undefined;
-  da: string = ''
 
   constructor(
-    private store$: Store<UserState>
-  ) { }
+    private store$: Store<UserState>,
+    private userSyncStorage: UserSyncStorageService
+  ) {
+    this.userId = this.store$.pipe(select(selectUserId));
+    this.token = this.store$.pipe(select(selectToken)); }
 
   ngOnInit(): void {
-    this.userId = this.store$.pipe(select(selectUserId));
-    this.token = this.store$.pipe(select(selectToken));
-    this.token.subscribe(value => this.da = value);
+    this.userSyncStorage.init();
   }
 
 }

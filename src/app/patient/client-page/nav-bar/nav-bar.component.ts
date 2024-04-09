@@ -60,6 +60,7 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.userid)
     if (this.userid == 0) {
       this.router.navigate(['/login']);
     }
@@ -70,6 +71,7 @@ export class NavBarComponent implements OnInit {
   openProfileDialog() {
     this.dialog.open(ProfileDialogComponent, {
       width: '800px',
+      height: '507px',
       data: {
         userId: this.userid,
         token: this.token

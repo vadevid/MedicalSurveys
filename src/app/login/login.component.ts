@@ -35,14 +35,12 @@ export class LoginComponent implements OnInit {
   token: string = '';
   role: string | undefined;
   routing: Router;
-  route: ActivatedRoute;
 
   constructor(router: Router,
               route: ActivatedRoute,
               private store$: Store<UserState>) {
     this.routing = router;
-    this.route = route;
-    this.login = this.route.snapshot.paramMap.get('login')!;
+    this.login = route.snapshot.paramMap.get('login')!;
   }
 
   onLogin() {

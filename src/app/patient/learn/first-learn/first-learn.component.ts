@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LearnContactingNavComponent} from "./learn-contacting-nav/learn-contacting-nav.component";
 import introJs from "intro.js";
+import {Router} from "@angular/router";
+import {LearnServiceService} from "../../../service/learn-service.service";
 
 @Component({
   selector: 'app-first-learn',
@@ -13,17 +15,16 @@ import introJs from "intro.js";
 })
 export class FirstLearnComponent implements OnInit {
 
-  constructor() { }
+  routing: Router;
+  firstStep: boolean = true;
+  secondStep: boolean = false;
+  service: LearnServiceService = new LearnServiceService();
+
+  constructor(router: Router) {
+    this.routing = router;
+  }
 
   ngOnInit(): void {
-    introJs().setOptions({
-      steps: [
-        {
-          element: '#doctorList',
-          intro: 'Это список врачей',
-          position: "bottom"
-        }]
-    }).start()
   }
 
 }

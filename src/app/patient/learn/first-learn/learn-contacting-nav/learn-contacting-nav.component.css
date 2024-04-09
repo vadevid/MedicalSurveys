@@ -3,6 +3,7 @@
 }
 
 .sidenav {
+  height: 100%;
   width: 200px;
 }
 
@@ -13,7 +14,6 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
 }
 
 .nav-bar {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Doctor} from "../../../../../model/doctor";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
@@ -7,6 +7,8 @@ import {MatAnchor} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
 import introJs from "intro.js";
 import {async} from "rxjs";
+import {LearnServiceService} from "../../../../../service/learn-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-learn-contacting-dashboard',
@@ -25,10 +27,15 @@ import {async} from "rxjs";
     NgForOf
   ]
 })
-export class LearnContactingDashboardComponent implements OnInit {
+export class LearnContactingDashboardComponent implements OnInit, AfterViewInit {
 
-  constructor() {
+  constructor(router: Router) {
+    this.routing = router;
   }
+
+  service: LearnServiceService = new LearnServiceService();
+
+  // myDoctor: Doctor =
 
   doctors: Doctor[] = [
     {id: 1, secondName: "Иванов", firstName: "Александр", middleName: "Петрович", type: "Психотерапевт"},
@@ -46,6 +53,8 @@ export class LearnContactingDashboardComponent implements OnInit {
   ]
   pagedList: Doctor[] = [];
 
+  routing: Router;
+
   ngOnInit(): void {
     this.pagedList = this.doctors.slice(0, 6)
   }
@@ -57,6 +66,21 @@ export class LearnContactingDashboardComponent implements OnInit {
       endIndex = this.doctors.length;
     }
     this.pagedList = this.doctors.slice(startIndex, endIndex)
+  }
+
+  ngAfterViewInit(): void {
+    this.service.steps
+      .oncomplete(() => this.complete())
+      .onskip(() => this.skip())
+      .start();
+  }
+
+  complete() {
+    this.routing.navigate(['clientpage'])
+  }
+
+  skip() {
+    this.routing.navigate(['clientpage'])
   }
 
 }
