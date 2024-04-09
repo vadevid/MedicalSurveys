@@ -1,7 +1,7 @@
 export class Card {
-  id: number;
-  name: string;
-  doctorName: string;
-  doctorType: string;
-  type: string;
+  id: number | undefined;
+  name: string | undefined;
+  doctorName: string | undefined;
+  doctorType: string | undefined;
+  type: string | undefined;
 }

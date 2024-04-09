@@ -1,22 +1,45 @@
-import {Component, EventEmitter, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, numberAttribute, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 import {ProfileDialogComponent} from "../../profile-dialog/profile-dialog.component";
+import {MatListItem, MatNavList} from "@angular/material/list";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatIcon} from "@angular/material/icon";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {LearnDashboardComponent} from "../learn-dashboard/learn-dashboard.component";
 
 @Component({
   selector: 'app-learn-nav',
   templateUrl: './learn-nav.component.html',
-  styleUrls: ['./learn-nav.component.css']
+  styleUrls: ['./learn-nav.component.css'],
+  standalone: true,
+  imports: [
+    MatNavList,
+    MatToolbar,
+    MatListItem,
+    RouterLink,
+    MatSidenav,
+    MatIcon,
+    AsyncPipe,
+    MatButton,
+    MatSidenavContainer,
+    MatIconButton,
+    LearnDashboardComponent,
+    NgIf,
+    MatSidenavContent
+  ]
 })
 export class LearnNavComponent implements OnInit {
 
+  @Input({transform: numberAttribute})
+  userid: number | undefined;
   @Input()
-  userid: number;
-  @Input()
-  token: string;
+  token: string | undefined | null = "";
 
   logoutEmmit = new EventEmitter<number>();
 

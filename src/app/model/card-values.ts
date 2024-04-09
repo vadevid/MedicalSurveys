@@ -1,10 +1,10 @@
 import {Card} from "./card";
 
 export class CardValues {
-  id: number;
-  valueName: string;
-  answer: string;
-  answerDate: string;
-  minValue: number;
-  maxValue: number;
+  id: number | undefined;
+  valueName: string | undefined;
+  answer: string | undefined;
+  answerDate: string | undefined;
+  minValue: number | undefined;
+  maxValue: number | undefined;
 }

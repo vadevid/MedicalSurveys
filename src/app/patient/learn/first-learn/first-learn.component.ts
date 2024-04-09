@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {LearnContactingNavComponent} from "./learn-contacting-nav/learn-contacting-nav.component";
 
 @Component({
   selector: 'app-first-learn',
   templateUrl: './first-learn.component.html',
-  styleUrls: ['./first-learn.component.css']
+  styleUrls: ['./first-learn.component.css'],
+  standalone: true,
+  imports: [
+    LearnContactingNavComponent
+  ]
 })
 export class FirstLearnComponent implements OnInit {
 

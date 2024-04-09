@@ -1,18 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ChartType, Row} from "angular-google-charts";
+// import {ChartType, Row} from "angular-google-charts";
 import axios from "axios";
 import {CardValues} from "../../../model/card-values";
 
 @Component({
   selector: 'app-card-page-graph',
   templateUrl: './card-page-graph.component.html',
-  styleUrls: ['./card-page-graph.component.css']
+  styleUrls: ['./card-page-graph.component.css'],
+  standalone: true,
+  imports: []
 })
 export class CardPageGraphComponent implements OnInit {
   @Input()
-  cardid: number;
+  cardid: number | undefined;
   @Input()
-  token: string;
+  token: string | undefined | null;
   columnNames = ["Дата", "Значение", "Мин", "Макс"]
   dataSource: CardValues[] = []
   options = {
@@ -23,10 +25,9 @@ export class CardPageGraphComponent implements OnInit {
       title: 'Значения'
     },
   };
-  chartData: Row[] = [
-  ];
+  // chartData: Row[] = [];
   title = 'Показатели';
-  type:ChartType = ChartType.LineChart;
+  // type:ChartType = ChartType.LineChart;
 
   constructor() {
   }
@@ -45,7 +46,7 @@ export class CardPageGraphComponent implements OnInit {
     }).then((response) => {
       this.dataSource = response.data
       this.dataSource.forEach((item) => {
-        this.chartData.push([item.answerDate, Number(item.answer), item.minValue, item.maxValue])
+        // this.chartData.push([item.answerDate, Number(item.answer), item.minValue, item.maxValue])
       })
     })
   }

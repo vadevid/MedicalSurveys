@@ -3,8 +3,8 @@ import {UserActions, userActionsType} from "./user.actions";
 export const USER_REDUCER_NODE = 'user';
 
 export interface UserState {
-  userid: number;
-  token: string;
+  userid: number | undefined;
+  token: string | undefined;
 }
 
 const initialState: UserState = {

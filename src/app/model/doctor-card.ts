@@ -1,6 +1,6 @@
 export class DoctorCard {
-  id: number;
-  name: string;
-  patientName: string;
-  type: string;
+  id: number | undefined;
+  name: string | undefined;
+  patientName: string | undefined;
+  type: string | undefined;
 }

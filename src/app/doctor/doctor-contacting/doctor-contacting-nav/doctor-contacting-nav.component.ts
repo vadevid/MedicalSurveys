@@ -1,22 +1,50 @@
-import {Component, EventEmitter, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, numberAttribute, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {UserState} from "../../../store/user.reducer";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {UserLogoutAction} from "../../../store/user.actions";
+import {DoctorContactingInfoComponent} from "../doctor-contacting-info/doctor-contacting-info.component";
+import {MatIcon} from "@angular/material/icon";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatListItem, MatNavList} from "@angular/material/list";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {MatAnchor, MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-doctor-contacting-nav',
   templateUrl: './doctor-contacting-nav.component.html',
-  styleUrls: ['./doctor-contacting-nav.component.css']
+  styleUrls: ['./doctor-contacting-nav.component.css'],
+  standalone: true,
+  imports: [
+    DoctorContactingInfoComponent,
+    MatIcon,
+    MatToolbar,
+    MatToolbar,
+    MatSidenavContent,
+    MatSidenavContainer,
+    MatSidenav,
+    MatNavList,
+    NgIf,
+    RouterLink,
+    MatListItem,
+    MatListItem,
+    RouterLink,
+    MatIconButton,
+    MatAnchor,
+    AsyncPipe,
+    AsyncPipe,
+    AsyncPipe
+  ]
 })
 export class DoctorContactingNavComponent implements OnInit {
+  @Input({transform: numberAttribute})
+  userId: number | undefined;
   @Input()
-  userId: number;
-  @Input()
-  token: string;
+  token: string | undefined | null;
   logoutEmmit = new EventEmitter<number>();
   router: Router;
 
@@ -33,7 +61,7 @@ export class DoctorContactingNavComponent implements OnInit {
 
   Logout() {
     this.logoutEmmit.emit(this.userId);
-    this.LogoutDispatch(this.userId);
+    this.LogoutDispatch(this.userId!);
     this.router.navigate(['login']);
   }
   LogoutDispatch(userid: number) {

@@ -1,31 +1,50 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PageEvent} from "@angular/material/paginator";
+import {Component, Input, numberAttribute, OnInit} from '@angular/core';
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Card} from "../../../model/card";
 import {Doctor} from "../../../model/doctor";
 import axios from "axios";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {NgForOf} from "@angular/common";
+import {MatAnchor} from "@angular/material/button";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-contacting-dashboard',
   templateUrl: './contacting-dashboard.component.html',
-  styleUrls: ['./contacting-dashboard.component.css']
+  styleUrls: ['./contacting-dashboard.component.css'],
+  standalone: true,
+  imports: [
+    MatCardContent,
+    MatCard,
+    MatPaginator,
+    MatCardTitle,
+    MatCardHeader,
+    MatGridTile,
+    MatGridList,
+    NgForOf,
+    MatAnchor,
+    RouterLink,
+    MatAnchor
+  ]
 })
 export class ContactingDashboardComponent implements OnInit {
+  @Input({transform: numberAttribute})
+  userId: number | undefined;
   @Input()
-  userId: number;
-  @Input()
-  token: String;
+  token: string | undefined | null;
 
-  doctors: Doctor[];
+  doctors: Doctor[] | undefined;
   pagedList: Doctor[] = [];
-  doctorsLength: number;
+  doctorsLength: number | undefined;
   pageSize = 6;
   onPageChange(event: PageEvent) {
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex  + event.pageSize;
     if(endIndex < startIndex) {
-      endIndex = this.doctorsLength;
+      endIndex = this.doctorsLength!;
     }
-    this.pagedList = this.doctors.slice(startIndex, endIndex)
+    this.pagedList = this.doctors!.slice(startIndex, endIndex)
   }
 
   constructor() { }
@@ -40,8 +59,8 @@ export class ContactingDashboardComponent implements OnInit {
       }
     }).then((response) => {
         this.doctors = response.data;
-        this.doctorsLength = this.doctors.length;
-        this.pagedList = this.doctors.slice(0, 6);
+        this.doctorsLength = this.doctors!.length;
+        this.pagedList = this.doctors!.slice(0, 6);
       }
     )
   }

@@ -8,25 +8,37 @@ import {userSelector} from "../../store/user.selectors";
 import {UserLogoutAction} from "../../store/user.actions";
 import {Router} from "@angular/router";
 import axios from "axios";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {FormsModule} from "@angular/forms";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-profile-dialog',
   templateUrl: './profile-dialog.component.html',
-  styleUrls: ['./profile-dialog.component.css']
+  styleUrls: ['./profile-dialog.component.css'],
+  imports: [
+    MatFormField,
+    FormsModule,
+    MatInput,
+    MatButton,
+    MatLabel
+  ],
+  standalone: true
 })
 export class ProfileDialogComponent implements OnInit {
 
   router: Router;
   dialog: MatDialog;
-  fio: String;
-  age: String;
-  sex: String;
-  growth: String;
-  weight: String;
-  mass_index: String;
-  mass_index_status: String;
-  weightNew: String;
-  growthNew: String;
+  fio: string | undefined;
+  age: string | undefined;
+  sex: string | undefined;
+  growth: string | undefined;
+  weight: string | undefined;
+  mass_index: string | undefined;
+  mass_index_status: string | undefined;
+  weightNew: string | undefined;
+  growthNew: string | undefined;
 
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<NavBarComponent>,
               private store$: Store<UserState>, @Inject(MAT_DIALOG_DATA) public data: any,

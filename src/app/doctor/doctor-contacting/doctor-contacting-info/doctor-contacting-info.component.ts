@@ -1,24 +1,43 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {DoctorCard} from "../../../model/doctor-card";
-import {Router} from "@angular/router";
-import {PageEvent} from "@angular/material/paginator";
+import {Router, RouterLink} from "@angular/router";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import axios from "axios";
 import {AnswerCard} from "../../../model/answer-card";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {NgForOf, NgIf} from "@angular/common";
+import {MatAnchor} from "@angular/material/button";
 
 @Component({
   selector: 'app-doctor-contacting-info',
   templateUrl: './doctor-contacting-info.component.html',
-  styleUrls: ['./doctor-contacting-info.component.css']
+  styleUrls: ['./doctor-contacting-info.component.css'],
+  standalone: true,
+  imports: [
+    MatGridList,
+    MatCardContent,
+    MatCardTitle,
+    MatPaginator,
+    MatCardHeader,
+    MatGridTile,
+    MatCard,
+    NgForOf,
+    NgIf,
+    MatAnchor,
+    MatAnchor,
+    RouterLink
+  ]
 })
 export class DoctorContactingInfoComponent implements OnInit {
 
   cards: AnswerCard[] = [];
   @Input()
-  userid: number;
+  userid: number | undefined;
   @Input()
-  token: string;
+  token: string | undefined | null;
   pagedList: AnswerCard[] = [];
-  cardLength: number;
+  cardLength: number | undefined;
   pageSize = 6;
   router: Router;
   constructor(@Inject(Router) router: Router) {
@@ -28,7 +47,7 @@ export class DoctorContactingInfoComponent implements OnInit {
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex  + event.pageSize;
     if(endIndex < startIndex) {
-      endIndex = this.cardLength;
+      endIndex = this.cardLength!;
     }
     this.pagedList = this.cards.slice(startIndex, endIndex)
   }

@@ -10,7 +10,7 @@ export enum userActionsType {
 export class UserLoginAction implements Action {
   readonly type = userActionsType.login;
 
-  constructor(public payload: { userid: number, token: string }) {
+  constructor(public payload: { userid: number | undefined, token: string | undefined | null }) {
   }
 }
 

@@ -1,5 +1,5 @@
 export class Message {
-  id: number;
-  patientName: string;
-  text: string;
+  id: number | undefined;
+  patientName: string | undefined;
+  text: string | undefined;
 }

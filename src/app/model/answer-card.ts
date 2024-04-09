@@ -1,5 +1,5 @@
 export class AnswerCard {
-  id: number;
-  answer: string;
-  patientName: string;
+  id: number | undefined;
+  answer: string | undefined;
+  patientName: string | undefined;
 }

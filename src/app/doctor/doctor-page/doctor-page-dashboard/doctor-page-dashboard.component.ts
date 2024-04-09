@@ -1,23 +1,42 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {PageEvent} from "@angular/material/paginator";
+import {Router, RouterLink} from "@angular/router";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Card} from "../../../model/card";
 import axios from "axios";
 import {DoctorCard} from "../../../model/doctor-card";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {NgForOf, NgIf} from "@angular/common";
+import {MatAnchor} from "@angular/material/button";
 
 @Component({
   selector: 'app-doctor-page-dashboard',
   templateUrl: './doctor-page-dashboard.component.html',
-  styleUrls: ['./doctor-page-dashboard.component.css']
+  styleUrls: ['./doctor-page-dashboard.component.css'],
+  standalone: true,
+  imports: [
+    MatCardTitle,
+    MatPaginator,
+    MatCardContent,
+    MatCardHeader,
+    MatCard,
+    MatGridList,
+    MatGridTile,
+    NgForOf,
+    NgIf,
+    MatAnchor,
+    MatAnchor,
+    RouterLink
+  ]
 })
 export class DoctorPageDashboardComponent implements OnInit {
   cards: DoctorCard[] = [];
   @Input()
-  userid: number;
+  userid: number | undefined;
   @Input()
-  token: string;
+  token: string | undefined | null;
   pagedList: DoctorCard[] = [];
-  cardLength: number;
+  cardLength: number | undefined;
   pageSize = 6;
   router: Router;
   constructor(@Inject(Router) router: Router) {
@@ -27,7 +46,7 @@ export class DoctorPageDashboardComponent implements OnInit {
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex  + event.pageSize;
     if(endIndex < startIndex) {
-      endIndex = this.cardLength;
+      endIndex = this.cardLength!;
     }
     this.pagedList = this.cards.slice(startIndex, endIndex)
   }

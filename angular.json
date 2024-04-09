@@ -23,7 +23,9 @@
             "outputPath": "dist/medical-survey",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -72,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "MedicalSurvey:build:production"
+              "buildTarget": "MedicalSurvey:build:production"
             },
             "development": {
-              "browserTarget": "MedicalSurvey:build:development"
+              "buildTarget": "MedicalSurvey:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MedicalSurvey:build"
+            "buildTarget": "MedicalSurvey:build"
           }
         },
         "test": {
@@ -106,6 +108,5 @@
         }
       }
     }
-  },
-  "defaultProject": "MedicalSurvey"
+  }
 }

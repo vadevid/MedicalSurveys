@@ -1,6 +1,6 @@
 <div class="grid-container">
-  <h1 class="mat-h1">{{cardInfo.name}}</h1>
-  <h4 class="mat-h4">{{cardInfo.patient.secondName}} {{cardInfo.patient.firstName}}  {{cardInfo.patient.middleName}}</h4>
+  <h1 class="mat-h1">{{cardInfo!.name}}</h1>
+  <h4 class="mat-h4">{{cardInfo!.patient!.secondName}} {{cardInfo!.patient!.firstName}}  {{cardInfo!.patient!.middleName}}</h4>
   <div *ngIf="show;then numberTabs else textTabs">
   </div>
   <ng-template #numberTabs>

@@ -1,22 +1,47 @@
-import {Component, EventEmitter, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, numberAttribute, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
 import {ProfileDialogComponent} from "../../profile-dialog/profile-dialog.component";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {DashboardClientComponent} from "../dashboard-client/dashboard-client.component";
+import {MatIcon} from "@angular/material/icon";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatListItem, MatNavList} from "@angular/material/list";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {MatButton, MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  standalone: true,
+  imports: [
+    DashboardClientComponent,
+    MatIcon,
+    MatSidenavContainer,
+    MatToolbar,
+    MatToolbar,
+    MatSidenav,
+    MatSidenavContent,
+    MatNavList,
+    NgIf,
+    MatListItem,
+    RouterLink,
+    MatButton,
+    MatIconButton,
+    AsyncPipe,
+    AsyncPipe
+  ]
 })
 export class NavBarComponent implements OnInit {
 
+  @Input({transform: numberAttribute})
+  userid: number | undefined;
   @Input()
-  userid: number;
-  @Input()
-  token: string;
+  token: string | undefined | null;
 
   logoutEmmit = new EventEmitter<number>();
 

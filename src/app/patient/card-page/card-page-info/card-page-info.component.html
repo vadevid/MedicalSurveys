@@ -1,6 +1,6 @@
 <div class="grid-container">
-  <h1 class="mat-h1">{{cardInfo.name}}</h1>
-  <h4 class="mat-h4">{{cardInfo.doctor.secondName}} {{cardInfo.doctor.firstName}}  {{cardInfo.doctor.middleName}}</h4>
+  <h1 class="mat-h1">{{cardInfo!.name}}</h1>
+  <h4 class="mat-h4">{{cardInfo!.doctor!.secondName}} {{cardInfo!.doctor!.firstName}}  {{cardInfo!.doctor!.middleName}}</h4>
   <div *ngIf="show;then numberTabs else textTabs">
   </div>
   <ng-template #numberTabs>
@@ -20,7 +20,7 @@
   <ng-template #numberfield>
     <div class="numberInfo">
       <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>{{cardInfo.name}}</mat-label>
+        <mat-label>{{cardInfo!.name}}</mat-label>
         <input [(ngModel)]="newNumberValue"
           matInput
           class="numberInput"
@@ -33,7 +33,7 @@
   <ng-template #textfield>
     <div class="numberInfo">
       <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>{{cardInfo.name}}</mat-label>
+        <mat-label>{{cardInfo!.name}}</mat-label>
         <textarea [(ngModel)]="newTextValue"
           matInput
           class="numberInput"

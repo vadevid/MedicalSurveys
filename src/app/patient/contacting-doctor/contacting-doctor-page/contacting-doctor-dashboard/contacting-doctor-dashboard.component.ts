@@ -1,19 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, numberAttribute, OnInit} from '@angular/core';
 import axios from "axios";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatButton} from "@angular/material/button";
+import {MatInput} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-contacting-doctor-dashboard',
   templateUrl: './contacting-doctor-dashboard.component.html',
-  styleUrls: ['./contacting-doctor-dashboard.component.css']
+  styleUrls: ['./contacting-doctor-dashboard.component.css'],
+  standalone: true,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatButton,
+    MatInput,
+    MatInput,
+    FormsModule
+  ]
 })
 export class ContactingDoctorDashboardComponent implements OnInit {
   @Input()
-  token: String;
-  @Input()
-  userId: number;
-  @Input()
-  doctorId: number;
-  textValue: String;
+  token: string | undefined | null;
+  @Input({transform: numberAttribute})
+  userId: number | undefined;
+  @Input({transform: numberAttribute})
+  doctorId: number | undefined;
+  textValue: string | undefined;
   constructor() { }
 
   ngOnInit(): void {

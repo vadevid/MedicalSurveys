@@ -1,6 +1,6 @@
 export class Patient {
-  id: number;
-  secondName: string;
-  firstName: string;
-  middleName: string;
+  id: number | undefined;
+  secondName: string | undefined;
+  firstName: string | undefined;
+  middleName: string | undefined;
 }

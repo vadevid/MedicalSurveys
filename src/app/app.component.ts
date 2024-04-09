@@ -1,41 +1,22 @@
 import {Component} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {UserState} from "./store/user.reducer";
-import {UserLoginAction} from "./store/user.actions";
-import {WebSocketAPI} from "./api/WebSocketAPI";
+import {RouterOutlet} from "@angular/router";
+import {LearnComponent} from "./patient/learn/learn.component";
+import {LoginComponent} from "./login/login.component";
+import {StoreModule} from "@ngrx/store";
+import {userReducer} from "./store/user.reducer";
 
 @Component({
-  selector: 'my-app',
-  template: `<router-outlet></router-outlet>`
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: 'app.component.css',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    LoginComponent,
+    StoreModule.forRoot({})
+  ]
 })
 export class AppComponent {
-  title: 'Дневник здоровья'
+  title = 'Дневник здоровья'
 
-  // webSocketAPI: WebSocketAPI;
-  greeting: any;
-  name: string;
-
-  ngOnInit() {
-    // this.webSocketAPI = new WebSocketAPI(this);
-  }
-
-  constructor(
-    private store$: Store<UserState>,
-  ) {
-  }
-  // connect(){
-  //   this.webSocketAPI._connect();
-  // }
-  //
-  // disconnect(){
-  //   this.webSocketAPI._disconnect();
-  // }
-  //
-  // sendMessage(){
-  //   this.webSocketAPI._send(this.name);
-  // }
-  //
-  handleMessage(message: any){
-    this.greeting = message;
-  }
 }

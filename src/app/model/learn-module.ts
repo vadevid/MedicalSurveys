@@ -1,5 +1,5 @@
 export class LearnModule {
-  id: number;
-  title: string;
-  active: boolean;
+  id: number | undefined;
+  title: string | undefined;
+  active: boolean | undefined;
 }

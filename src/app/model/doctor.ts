@@ -1,7 +1,7 @@
 export class Doctor {
-  id: number;
-  secondName: string;
-  firstName: string;
-  middleName: string;
-  type: string;
+  id: number | undefined;
+  secondName: string | undefined;
+  firstName: string | undefined;
+  middleName: string | undefined;
+  type: string | undefined;
 }

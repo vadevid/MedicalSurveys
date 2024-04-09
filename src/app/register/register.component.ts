@@ -1,26 +1,54 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {data} from "autoprefixer";
 import axios from "axios";
-import {MatDatepicker} from "@angular/material/datepicker";
+import {
+  MatDatepicker,
+  MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel,
+  MatDatepickerInput,
+  MatDatepickerToggle
+} from "@angular/material/datepicker";
+import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
+import {FormsModule} from "@angular/forms";
+import {MatRadioButton} from "@angular/material/radio";
+import {MatAnchor, MatButton} from "@angular/material/button";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   templateUrl: './register.component.html',
+  imports: [
+    MatFormField,
+    FormsModule,
+    MatRadioButton,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatDatepickerActions,
+    MatHint,
+    MatAnchor,
+    MatButton,
+    RouterLink,
+    MatDatepickerCancel,
+    MatDatepickerApply,
+    MatInput,
+    MatLabel
+  ],
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  login: string;
-  pass: string;
-  secondName: string;
-  firstName: string;
-  middleName: string;
+  login: string | undefined;
+  pass: string | undefined;
+  secondName: string | undefined;
+  firstName: string | undefined;
+  middleName: string | undefined;
   dateOfBirthField: any;
-  dateOfBirth: string;
+  dateOfBirth: string | undefined;
   male: boolean = true;
   woman: boolean = false;
-  email: string;
-  sex: string;
+  email: string | undefined;
+  sex: string | undefined;
   router: Router;
   constructor(@Inject(Router) router: Router) {
     this.router = router;

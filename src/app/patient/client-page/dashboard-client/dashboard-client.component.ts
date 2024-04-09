@@ -1,30 +1,49 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import {PageEvent} from "@angular/material/paginator";
-import {Router} from "@angular/router";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {Router, RouterLink} from "@angular/router";
 import {Card} from "../../../model/card";
 import axios from "axios";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {NgForOf, NgIf} from "@angular/common";
+import {MatAnchor} from "@angular/material/button";
 
 @Component({
   selector: 'app-dashboard-client',
   templateUrl: './dashboard-client.component.html',
-  styleUrls: ['./dashboard-client.component.css']
+  styleUrls: ['./dashboard-client.component.css'],
+  standalone: true,
+  imports: [
+    MatCardHeader,
+    MatGridList,
+    MatCardContent,
+    MatCard,
+    MatGridTile,
+    MatCardTitle,
+    MatPaginator,
+    NgForOf,
+    NgIf,
+    RouterLink,
+    MatAnchor,
+    MatAnchor
+  ]
 })
 export class DashboardClientComponent implements OnInit{
 
   cards: Card[] = [];
   @Input()
-  userid: number;
+  userid: number | undefined;
   @Input()
-  token: string;
+  token: string | undefined | null;
   pagedList: Card[] = [];
-  cardLength: number;
+  cardLength: number | undefined;
   pageSize = 6;
   router: Router;
 
   ngOnInit() {
-    this.LoadCards(this.userid);
+    this.LoadCards(this.userid!);
   }
 
   async LoadCards(userid: number) {
@@ -46,7 +65,7 @@ export class DashboardClientComponent implements OnInit{
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex  + event.pageSize;
     if(endIndex < startIndex) {
-      endIndex = this.cardLength;
+      endIndex = this.cardLength!;
     }
     this.pagedList = this.cards.slice(startIndex, endIndex)
   }

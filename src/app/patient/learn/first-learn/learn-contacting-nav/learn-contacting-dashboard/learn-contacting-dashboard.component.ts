@@ -1,11 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import {Doctor} from "../../../../../model/doctor";
-import {PageEvent} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatAnchor} from "@angular/material/button";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-learn-contacting-dashboard',
   templateUrl: './learn-contacting-dashboard.component.html',
-  styleUrls: ['./learn-contacting-dashboard.component.css']
+  styleUrls: ['./learn-contacting-dashboard.component.css'],
+  standalone: true,
+  imports: [
+    MatGridList,
+    MatGridTile,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatPaginator,
+    MatAnchor,
+    MatCardTitle,
+    NgForOf
+  ]
 })
 export class LearnContactingDashboardComponent implements OnInit {
 

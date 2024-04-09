@@ -1,7 +1,7 @@
 <div class="grid-container">
   <div class="answer-form">
-    <h1 class="mat-h1">{{answer.patientName}}</h1>
-    <h4 class="mat-h4">{{answer.text}}</h4>
+    <h1 class="mat-h1">{{answer!.patientName}}</h1>
+    <h4 class="mat-h4">{{answer!.text}}</h4>
     <mat-form-field class="example-form-field" appearance="fill">
       <mat-label>Параметр</mat-label>
       <input [(ngModel)]="name" matInput type="text">
@@ -19,6 +19,6 @@
         <input [(ngModel)]="max" matInput type="number">
       </mat-form-field>
     </ng-template>
-    <button mat-raised-button color="primary" (click)="SendCard(answer.id)">Отправить</button>
+    <button mat-raised-button color="primary" (click)="SendCard(answer!.id)">Отправить</button>
   </div>
 </div>
