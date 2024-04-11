@@ -1,11 +1,14 @@
 package my.project.medicalsurveys.controller;
 
 import my.project.medicalsurveys.entity.Patient;
+import my.project.medicalsurveys.entity.PatientLearn;
+import my.project.medicalsurveys.model.request.CheckLearnModel;
 import my.project.medicalsurveys.model.request.ContactingADoctorModel;
 import my.project.medicalsurveys.model.response.DoctorModel;
 import my.project.medicalsurveys.model.response.PatientCardModel;
 import my.project.medicalsurveys.model.response.PatientInfoModel;
 import my.project.medicalsurveys.model.response.PatientModulesModel;
+import my.project.medicalsurveys.repository.PatientLearnRepository;
 import my.project.medicalsurveys.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,6 +34,12 @@ public class PatientController {
     @Autowired
     DoctorService doctorService;
 
+    @Autowired
+    PatientLearnRepository patientLearnRepository;
+
+    @Autowired
+    PatientLearnService patientLearnService;
+
     @PostMapping(path = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
     public PatientInfoModel getPatientInfo(@RequestBody Patient patient) throws Exception {
         return patientService.getPatientInfo(patient.getId());
@@ -54,4 +63,10 @@ public class PatientController {
     public ResponseEntity<List<DoctorModel>> findAllDoctor() throws Exception {
         return ResponseEntity.ok(doctorService.findAll());
     }
+
+    @PostMapping(path = "/checkLearn", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void checkLearn(@RequestBody CheckLearnModel checkLearnModel) throws Exception {
+      patientLearnService.checkPatientLearn(checkLearnModel.getPatientId(), checkLearnModel.getLearnId());
+    }
+
 }

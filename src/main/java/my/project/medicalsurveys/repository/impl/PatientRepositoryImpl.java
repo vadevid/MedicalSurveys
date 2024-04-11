@@ -1,10 +1,7 @@
 package my.project.medicalsurveys.repository.impl;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import my.project.medicalsurveys.entity.*;
 import my.project.medicalsurveys.model.response.PatientModulesModel;
 import my.project.medicalsurveys.repository.PatientRepository;
@@ -12,6 +9,7 @@ import my.project.medicalsurveys.repository.specification.PatientLearnSpec;
 import my.project.medicalsurveys.repository.specification.PatientSpec;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -56,6 +54,7 @@ public class PatientRepositoryImpl implements PatientRepository {
         );
 
         query.where(PatientLearnSpec.byPatientId(id).toPredicate(root, query, builder));
+        query.orderBy(builder.asc(root.get(PatientLearn_.id)));
         return manager.createQuery(query).getResultList();
     }
 }

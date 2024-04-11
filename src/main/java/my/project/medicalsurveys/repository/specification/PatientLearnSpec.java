@@ -18,4 +18,16 @@ public class PatientLearnSpec {
             }
         };
     }
+
+    public static Specification<PatientLearn> byPatientIdAndLearnId(long patientId, long learnId) {
+        return new Specification<PatientLearn>() {
+            @Override
+            public Predicate toPredicate(Root<PatientLearn> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get(PatientLearn_.patientId), patientId),
+                        criteriaBuilder.equal(root.get(PatientLearn_.learnModuleId), learnId)
+                );
+            }
+        };
+    }
 }
