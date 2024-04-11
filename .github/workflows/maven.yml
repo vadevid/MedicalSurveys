@@ -21,14 +21,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Start PostgreSQL
-      uses: docker://postgres:alpine
-      env:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: dfg234hj
-        POSTGRES_DB: yourdatabamedical_dictionaryse
-        ports: 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
