@@ -11,9 +11,9 @@ public class PatientLearnService {
     @Autowired
     PatientLearnRepository patientLearnRepository;
 
-    public void checkPatientLearn(long patientId, long learnId) {
+    public PatientLearn checkPatientLearn(long patientId, long learnId) {
         PatientLearn patientLearn = patientLearnRepository.findByPatientIdAndLearnId(patientId, learnId);
         patientLearn.setActive(false);
-        patientLearnRepository.update(patientLearn);
+        return patientLearnRepository.update(patientLearn);
     }
 }

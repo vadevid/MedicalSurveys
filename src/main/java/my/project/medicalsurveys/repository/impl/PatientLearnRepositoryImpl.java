@@ -46,7 +46,7 @@ public class PatientLearnRepositoryImpl implements PatientLearnRepository {
 
     @Override
     @Transactional
-    public void update(PatientLearn patientLearn) {
-        manager.merge(patientLearn);
+    public PatientLearn update(PatientLearn patientLearn) {
+        return manager.merge(patientLearn);
     }
 }

@@ -8,5 +8,5 @@ public interface PatientLearnRepository {
 
     PatientLearn findByPatientIdAndLearnId(long patientId, long learnId);
 
-    void update(PatientLearn patientLearn);
+    PatientLearn update(PatientLearn patientLearn);
 }
