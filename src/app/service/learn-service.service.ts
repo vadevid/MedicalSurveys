@@ -25,7 +25,7 @@ export class LearnServiceService {
       {
         element: '#confirm',
         intro: 'Давайте выберем этого врача',
-        position: "right"
+        position: "right",
       },
       {
         element: '#pageLearn',
@@ -35,12 +35,14 @@ export class LearnServiceService {
       {
         element: '#inputLearn',
         intro: 'Здесь заполняются данные',
-        position: "right"
+        position: "right",
+        disableInteraction: true
       },
       {
         element: '#finishButton',
         intro: 'Нажав на эту кнопку будет произведена отправка запроса',
-        position: "right"
+        position: "right",
+        disableInteraction: true
       },
     ],
     showProgress: true,

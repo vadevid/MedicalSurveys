@@ -85,7 +85,7 @@ export class ProfileDialogComponent implements OnInit {
   }
 
   async SendNewDefaultValue() {
-    await axios.post('http://localhost:8080/patient/setvalue', {
+    await axios.post('/api/patient/setValue', {
       patientId: this.userId,
       growth: this.growthNew,
       weight: this.weightNew

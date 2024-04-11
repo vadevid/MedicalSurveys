@@ -6,6 +6,7 @@ import {userReducer} from "./store/user.reducer";
 import {RouterModule, RouterOutlet} from "@angular/router";
 import {routes} from "./app.routes";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {provideNativeDateAdapter} from "@angular/material/core";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [provideNativeDateAdapter()],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

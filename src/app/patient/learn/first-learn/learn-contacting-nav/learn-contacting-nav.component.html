@@ -12,7 +12,7 @@
       <span>MedicalSurvey</span>
       <button mat-button><img class="avatar" src="../../../../assets/avatar-1.png"></button>
     </mat-toolbar>
-    <app-learn-contacting-dashboard (changeStepEvent)="changeStep($event)" [service]="service"></app-learn-contacting-dashboard>
+    <app-learn-contacting-dashboard [token]="token | async" [userId]="userId | async" (changeStepEvent)="changeStep($event)" [service]="service"></app-learn-contacting-dashboard>
   </mat-sidenav-content>
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

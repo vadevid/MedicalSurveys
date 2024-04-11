@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, numberAttribute, OnInit, Output} from '@angular/core';
 import {Doctor} from "../../../../../model/doctor";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
@@ -9,6 +9,7 @@ import introJs from "intro.js";
 import {async} from "rxjs";
 import {LearnServiceService} from "../../../../../service/learn-service.service";
 import {Router} from "@angular/router";
+import axios from "axios";
 
 @Component({
   selector: 'app-learn-contacting-dashboard',
@@ -32,6 +33,11 @@ export class LearnContactingDashboardComponent implements OnInit, AfterViewInit 
   constructor(router: Router) {
     this.routing = router;
   }
+
+  @Input({transform: numberAttribute})
+  userId: number | undefined | null;
+  @Input()
+  token: string | undefined | null;
 
   @Input() service: LearnServiceService | undefined;
 
@@ -76,7 +82,19 @@ export class LearnContactingDashboardComponent implements OnInit, AfterViewInit 
   }
 
   complete() {
+    this.checkLearn()
     this.routing.navigate(['clientpage'])
+  }
+
+  async checkLearn() {
+    await axios.post("/api/patient/checkLearn", {
+      patientId: 1,
+      learnId: 1
+    }, {
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
+    })
   }
 
   skip() {

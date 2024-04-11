@@ -71,13 +71,13 @@ export class RegisterComponent implements OnInit {
     if (this.woman) this.sex = 'Ж';
     if (this.login != null && this.pass != null && this.secondName != null &&
       this.firstName != null && this.middleName != null && this.dateOfBirth != null ) {
-      await axios.post("http://localhost:8080/auth/register", {
+      await axios.post("/api/auth/register_patient", {
         secondName: this.secondName,
         firstName: this.firstName,
         middleName: this.middleName,
-        email: this.email,
         login: this.login,
         password: this.pass,
+        email: this.email,
         birthdate: this.dateOfBirth,
         sex: this.sex
       }).then((response) => {

@@ -10,6 +10,9 @@ import {LearnContactingDashboardComponent} from "./learn-contacting-dashboard/le
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {LearnServiceService} from "../../../../service/learn-service.service";
+import {select, Store} from "@ngrx/store";
+import {selectToken, selectUserId} from "../../../../store/user.selectors";
+import {UserState} from "../../../../store/user.reducer";
 
 @Component({
   selector: 'app-learn-contacting-nav',
@@ -33,7 +36,13 @@ import {LearnServiceService} from "../../../../service/learn-service.service";
 })
 export class LearnContactingNavComponent implements OnInit {
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private store$: Store<UserState>) {
+    this.userId = this.store$.pipe(select(selectUserId));
+    this.token = this.store$.pipe(select(selectToken));
+  }
+
+  userId: Observable<number | undefined> | undefined;
+  token: Observable<string> | undefined;
 
   ngOnInit(): void {
   }
