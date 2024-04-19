@@ -52,7 +52,9 @@ export class LearnServiceService {
     nextLabel: "Далее",
     prevLabel: "Назад",
     hidePrev: true,
-    doneLabel: "Готово"
+    doneLabel: "Готово",
+    showBullets: false,
+    showStepNumbers: true
   }).onbeforechange(async () => {
     return new Promise((resolve) => {
       console.log('Performing I/O...');

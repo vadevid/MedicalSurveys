@@ -54,7 +54,7 @@ export class DashboardClientComponent implements OnInit{
     }).then((response) => {
       this.cards = response.data;
       this.cardLength = this.cards.length;
-      this.pagedList = this.cards.slice(0, 6)
+      this.pagedList = this.cards.slice(0, this.pageSize)
       }
     )
   }
