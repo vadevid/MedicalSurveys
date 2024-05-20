@@ -57,12 +57,10 @@ export class RegisterComponent implements OnInit {
     this.dateOfBirthField = date;
     var month;
     var day;
+    if (this.dateOfBirthField.getDate() + 1 < 10) day = "0" + (this.dateOfBirthField.getDate() + 1)
+    else day = (this.dateOfBirthField.getDate() + 1)
     if (this.dateOfBirthField.getMonth()+1 < 10) month = "0"+(this.dateOfBirthField.getMonth()+1)
     else month = (this.dateOfBirthField.getMonth()+1)
-
-    if (this.dateOfBirthField.getDate() < 10) day = "0"+(this.dateOfBirthField.getDate())
-    else day = (this.dateOfBirthField.getDate())
-
     this.dateOfBirth = day+"."+month+"."+this.dateOfBirthField.getFullYear();
   }
 
