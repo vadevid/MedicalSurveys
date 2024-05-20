@@ -1,8 +1,0 @@
-<div *ngIf="firstStep;then first else second"></div>
-
-<ng-template #first>
-  <app-learn-contacting-nav (changeStepEvent)="changeStep($event)" [service]="service"></app-learn-contacting-nav>
-</ng-template>
-<ng-template #second>
-  <app-learn-contacting-second-nav [service]="service"></app-learn-contacting-second-nav>
-</ng-template>

@@ -31,25 +31,25 @@ import {MatAnchor} from "@angular/material/button";
 export class DashboardClientComponent implements OnInit{
 
   cards: Card[] = [];
+
   @Input()
-  userid: number | undefined;
-  @Input()
-  token: string | undefined | null;
+  data: any;
+
   pagedList: Card[] = [];
   cardLength: number | undefined;
   pageSize = 6;
   router: Router;
 
   ngOnInit() {
-    this.LoadCards(this.userid!);
+    this.LoadCards(this.data?.userId);
   }
 
-  async LoadCards(userid: number) {
-    await axios.post("http://localhost:8080/card/getall", {
+  async LoadCards(userid: number | undefined) {
+    await axios.post("http://localhost:8080/api/patient/getAllCard", {
       "id": userid
     }, {
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data?.token}`
       }
     }).then((response) => {
       this.cards = response.data;

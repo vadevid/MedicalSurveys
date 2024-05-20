@@ -51,7 +51,7 @@ export class CardPageTableComponent implements OnInit {
   }
 
   async GetData() {
-    await axios.post("http://localhost:8080/card/getallanswer", {
+    await axios.post("http://localhost:8080/api/patient/getCardAllAnswer", {
       id: this.cardid
     }, {
       headers: {

@@ -1,2 +1,10 @@
-<app-nav-bar [userid]="userId | async" [token$]="token"></app-nav-bar>
+<app-patient-nav [content]="dashboard" [data]="{
+  userId: userId| async,
+  token: token | async
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-dashboard-client [data]="data"/>
+</ng-template>
+
 <router-outlet></router-outlet>

@@ -1,11 +1,14 @@
-import {Component, Inject, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {UserState} from "../../store/user.reducer";
-import {CardPageNavComponent} from "./card-page-nav/card-page-nav.component";
 import {AsyncPipe} from "@angular/common";
 import {selectToken, selectUserId} from "../../store/user.selectors";
+import {PatientNavComponent} from "../../nav/patient-nav/patient-nav.component";
+import {DashboardClientComponent} from "../client-page/dashboard-client/dashboard-client.component";
+import {UserSyncStorageService} from "../../service/user-sync-storage.service";
+import {CardPageInfoComponent} from "./card-page-info/card-page-info.component";
 
 @Component({
   selector: 'app-card-page',
@@ -13,27 +16,35 @@ import {selectToken, selectUserId} from "../../store/user.selectors";
   styleUrls: ['./card-page.component.css'],
   standalone: true,
   imports: [
-    CardPageNavComponent,
     RouterOutlet,
-    AsyncPipe
+    AsyncPipe,
+    PatientNavComponent,
+    DashboardClientComponent,
+    CardPageInfoComponent
   ]
 })
 export class CardPageComponent implements OnInit {
   routing: Router;
   route: ActivatedRoute;
   cardid: number | undefined;
-  userId: Observable<number | undefined> = this.store$.pipe(select(selectUserId));
-  token: Observable<string | undefined> = this.store$.pipe(select(selectToken));
+  userId: Observable<number | undefined>;
+  token: Observable<string> | undefined;
 
-  constructor(@Inject(Router) router: Router,
-              @Inject(ActivatedRoute) route: ActivatedRoute,
-              private store$: Store<UserState>,) {
+  constructor(
+    private store$: Store<UserState>,
+    private userSyncStorage: UserSyncStorageService,
+    @Inject(Router) router: Router,
+    @Inject(ActivatedRoute) route: ActivatedRoute,
+  ) {
     this.routing = router;
     this.route = route;
+    this.userId = this.store$.pipe(select(selectUserId));
+    this.token = this.store$.pipe(select(selectToken));
     this.cardid = +this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
+    this.userSyncStorage.init()
   }
 
 }

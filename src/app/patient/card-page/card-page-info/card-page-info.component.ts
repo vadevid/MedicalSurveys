@@ -2,7 +2,6 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CardInfo} from "../../../model/card-info";
 import axios from "axios";
 import {Router} from "@angular/router";
-import {CardValues} from "../../../model/card-values";
 import {CardPageGraphComponent} from "../card-page-graph/card-page-graph.component";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {CardPageTableComponent} from "../card-page-table/card-page-table.component";
@@ -40,11 +39,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class CardPageInfoComponent implements OnInit {
   @Input()
-  cardid: number | undefined;
-  @Input()
-  userId: number | undefined;
-  @Input()
-  token: string | undefined | null;
+  data: any;
   show: boolean | undefined;
   cardInfo: CardInfo | undefined;
   newNumberValue: string | undefined;
@@ -55,15 +50,15 @@ export class CardPageInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.LoadCardInfo(this.cardid!);
+    this.LoadCardInfo(this.data.userId);
   }
 
   async LoadCardInfo(id: number) {
-    await axios.post("http://localhost:8080/card/getcard", {
+    await axios.post("http://localhost:8080/api/patient/getCard", {
       id: id
     }, {
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
         this.cardInfo = response.data
@@ -74,12 +69,12 @@ export class CardPageInfoComponent implements OnInit {
   }
 
   async SendNewValue() {
-    await axios.post("http://localhost:8080/card/newvalue", {
-      cardId: this.cardid,
+    await axios.post("http://localhost:8080/api/patient/newCardValue", {
+      cardId: this.data.cardId,
       value: this.show ? this.newNumberValue : this.newTextValue,
     }, {
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
         if (response.data)

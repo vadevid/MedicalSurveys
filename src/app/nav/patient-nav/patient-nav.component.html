@@ -10,8 +10,11 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>MedicalSurvey</span>
+      <button  (click)="openProfileDialog()" mat-button><img class="avatar" src="../../../../assets/avatar-1.png"></button>
     </mat-toolbar>
-    <app-card-page-info [cardid]="cardid" [userId]="userId" [token]="token" ></app-card-page-info>
+    <ng-template [ngIf]="flag">
+      <ng-container *ngTemplateOutlet="content; context: {newContext: newContext}"/>
+    </ng-template>
   </mat-sidenav-content>
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

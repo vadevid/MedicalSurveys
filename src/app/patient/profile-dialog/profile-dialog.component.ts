@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {NavBarComponent} from "../client-page/nav-bar/nav-bar.component";
-import {select, Store} from "@ngrx/store";
+import {PatientNavComponent} from "../../nav/patient-nav/patient-nav.component";
+import {Store} from "@ngrx/store";
 import {UserState} from "../../store/user.reducer";
-import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import axios from "axios";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -39,7 +38,7 @@ export class ProfileDialogComponent implements OnInit {
   weightNew: string | undefined;
   growthNew: string | undefined;
 
-  constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<NavBarComponent>,
+  constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<PatientNavComponent>,
               private store$: Store<UserState>, @Inject(MAT_DIALOG_DATA) public data: any,
               @Inject(Router) router: Router, @Inject(MatDialog) private matDialog: MatDialog) {
     this.dialog = matDialog;
@@ -98,11 +97,6 @@ export class ProfileDialogComponent implements OnInit {
       else prompt("Отправка не удалась")
       }
     )
-  }
-
-  GoToLearn() {
-    this.dialog.closeAll();
-    this.router.navigate(['learn'])
   }
 
 }
