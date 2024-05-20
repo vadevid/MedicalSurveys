@@ -28,9 +28,12 @@ export class RegisterComponent implements OnInit {
   OnDateChange(date: unknown) {
     this.dateOfBirthField = date;
     var month;
+    var day;
+    if (this.dateOfBirthField.getDate() + 1 < 10) day = "0" + (this.dateOfBirthField.getDate() + 1)
+    else day = (this.dateOfBirthField.getDate() + 1)
     if (this.dateOfBirthField.getMonth()+1 < 10) month = "0"+(this.dateOfBirthField.getMonth()+1)
     else month = (this.dateOfBirthField.getMonth()+1)
-    this.dateOfBirth = this.dateOfBirthField.getDate()+"."+month+"."+this.dateOfBirthField.getFullYear();
+    this.dateOfBirth = day+"."+month+"."+this.dateOfBirthField.getFullYear();
   }
 
   async RegisterBtn() {
@@ -48,6 +51,7 @@ export class RegisterComponent implements OnInit {
         birthdate: this.dateOfBirth,
         sex: this.sex
       }).then((response) => {
+        console.log(response)
         if (response.data) {
           this.router.navigate(['login', {login: this.login}])
         } else alert("Такой пользователь уже существует")
