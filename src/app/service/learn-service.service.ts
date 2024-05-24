@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import introJs from "intro.js";
-import {resolve} from "@angular/compiler-cli";
 import {IntroJs} from "intro.js/src/intro";
 
 @Injectable({
@@ -57,7 +56,6 @@ export class LearnServiceService {
     showStepNumbers: true
   }).onbeforechange(async () => {
     return new Promise((resolve) => {
-      console.log('Performing I/O...');
       setInterval(resolve, 200);
     });
   })

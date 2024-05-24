@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router";
 import axios from "axios";
 import {Store} from "@ngrx/store";
@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginDispatch(userid: number, token: string) {
-    console.log(token)
     this.store$.dispatch(login({userid: userid, token: token}))
   }
 
@@ -57,7 +56,6 @@ export class LoginComponent implements OnInit {
       "login": this.login,
       "password": this.pass
     }).then((response) => {
-      console.log(response)
       this.userid = Number(response.data.id);
       this.token = response.data.token;
       this.role = response.data.role;
