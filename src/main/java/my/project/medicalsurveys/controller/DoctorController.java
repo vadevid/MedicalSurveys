@@ -1,11 +1,11 @@
 package my.project.medicalsurveys.controller;
 
+import my.project.medicalsurveys.entity.Card;
+import my.project.medicalsurveys.entity.ContactingADoctor;
 import my.project.medicalsurveys.entity.Doctor;
-import my.project.medicalsurveys.entity.Patient;
-import my.project.medicalsurveys.model.request.ContactingADoctorModel;
-import my.project.medicalsurveys.model.response.DoctorCardModel;
-import my.project.medicalsurveys.model.response.MessageModel;
-import my.project.medicalsurveys.model.response.PatientCardModel;
+import my.project.medicalsurveys.model.request.DoctorSendMessageRequest;
+import my.project.medicalsurveys.model.request.SendCardRequest;
+import my.project.medicalsurveys.model.response.*;
 import my.project.medicalsurveys.service.CardService;
 import my.project.medicalsurveys.service.ContactingADoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,38 @@ public class DoctorController {
     ContactingADoctorService contactingADoctorService;
 
     @PostMapping(path = "/getAllCard", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DoctorCardModel>> getAllCard(@RequestBody Patient patient) throws Exception {
-        return ResponseEntity.ok(cardService.findByDoctorId(patient.getId()));
+    public ResponseEntity<List<DoctorGetAllCardResponse>> getAllCard(@RequestBody Doctor doctor) throws Exception {
+        return ResponseEntity.ok(cardService.findByDoctorId(doctor.getId()));
+    }
+
+    @PostMapping(path = "/getCard", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GetCardResponse> getCardById(@RequestBody Card card) throws Exception {
+        return ResponseEntity.ok(cardService.findById(card.getId()));
+    }
+
+    @PostMapping(path = "/getCardAllAnswer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<GetCardAllAnswerResponse>> getCardAllAnswer(@RequestBody Card card) throws Exception {
+        return ResponseEntity.ok(cardService.getAllAnswer(card.getId()));
+    }
+
+    @PostMapping(path = "/sendCard", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> sendCard(@RequestBody SendCardRequest request) throws Exception {
+        return ResponseEntity.ok(cardService.sendCard(request));
     }
 
     @PostMapping(path = "/getAllMessage", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MessageModel>> getAllMessage(@RequestBody Doctor doctor) throws Exception {
+    public ResponseEntity<List<DoctorGetAllMessageResponse>> getAllMessage(@RequestBody Doctor doctor) throws Exception {
         return ResponseEntity.ok(contactingADoctorService.findByDoctorId(doctor.getId()));
     }
+
+    @PostMapping(path = "/getMessage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoctorGetMessageResponse> getMessage(@RequestBody ContactingADoctor contactingADoctor) throws Exception {
+        return ResponseEntity.ok(contactingADoctorService.getMessageById(contactingADoctor.getId()));
+    }
+
+    @PostMapping(path = "/sendMessage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> sendMessage(@RequestBody DoctorSendMessageRequest message) throws Exception {
+        return ResponseEntity.ok(contactingADoctorService.sendMessage(message));
+    }
+
 }

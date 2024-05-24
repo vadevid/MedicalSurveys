@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import my.project.medicalsurveys.entity.Role;
 import my.project.medicalsurveys.repository.RoleRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
@@ -15,6 +16,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
+    @Transactional
     public void save(Role role) {
         manager.persist(role);
     }

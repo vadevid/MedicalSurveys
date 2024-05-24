@@ -1,22 +1,24 @@
 package my.project.medicalsurveys.model.response;
 
-public class    PatientCardModel {
+public class PatientGetAllCardResponse {
 
     private Integer id;
     private String name;
     private String doctorName;
     private String doctorType;
     private String cardType;
+    private boolean newCard;
 
-    public PatientCardModel() {
+    public PatientGetAllCardResponse() {
     }
 
-    public PatientCardModel(Integer id, String name, String doctorName, String doctorType, String cardType) {
+    public PatientGetAllCardResponse(Integer id, String name, String doctorName, String doctorType, String cardType, boolean newCard) {
         this.id = id;
         this.name = name;
         this.doctorName = doctorName;
         this.doctorType = doctorType;
         this.cardType = cardType;
+        this.newCard = newCard;
     }
 
     public Integer getId() {
@@ -57,5 +59,13 @@ public class    PatientCardModel {
 
     public void setCardType(String cardType) {
         this.cardType = cardType;
+    }
+
+    public boolean isNewCard() {
+        return newCard;
+    }
+
+    public void setNewCard(boolean newCard) {
+        this.newCard = newCard;
     }
 }

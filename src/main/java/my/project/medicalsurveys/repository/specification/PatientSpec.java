@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import my.project.medicalsurveys.entity.Patient;
 import my.project.medicalsurveys.entity.Patient_;
+import my.project.medicalsurveys.entity.User_;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientSpec {
@@ -14,7 +15,7 @@ public class PatientSpec {
         return new Specification<Patient>() {
             @Override
             public Predicate toPredicate(Root<Patient> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get(Patient_.id), id);
+                return criteriaBuilder.equal(root.get(Patient_.user).get(User_.id), id);
             }
         };
     }

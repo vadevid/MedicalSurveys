@@ -10,6 +10,7 @@ import my.project.medicalsurveys.entity.Patient;
 import my.project.medicalsurveys.repository.DefaultValueRepository;
 import my.project.medicalsurveys.repository.specification.DefaultValueSpec;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class DefaultValueRepositoryImpl implements DefaultValueRepository {
         this.manager = manager;
     }
     @Override
+    @Transactional
     public void save(DefaultValue value) {
         manager.persist(value);
     }

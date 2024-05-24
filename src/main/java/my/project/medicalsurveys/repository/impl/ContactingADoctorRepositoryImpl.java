@@ -1,14 +1,11 @@
 package my.project.medicalsurveys.repository.impl;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import my.project.medicalsurveys.entity.ContactingADoctor;
-import my.project.medicalsurveys.entity.ContactingADoctor_;
-import my.project.medicalsurveys.entity.Patient_;
-import my.project.medicalsurveys.model.response.MessageModel;
+import my.project.medicalsurveys.entity.*;
+import my.project.medicalsurveys.model.response.DoctorGetAllMessageResponse;
+import my.project.medicalsurveys.model.response.DoctorGetMessageResponse;
 import my.project.medicalsurveys.repository.ContactingADoctorRepository;
 import my.project.medicalsurveys.repository.specification.ContactingADoctorSpec;
 import org.springframework.stereotype.Repository;
@@ -30,9 +27,9 @@ public class ContactingADoctorRepositoryImpl implements ContactingADoctorReposit
     }
 
     @Override
-    public List<MessageModel> findByDoctorId(Long id) {
+    public List<DoctorGetAllMessageResponse> findByDoctorId(Long id) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<MessageModel> query = builder.createQuery(MessageModel.class);
+        CriteriaQuery<DoctorGetAllMessageResponse> query = builder.createQuery(DoctorGetAllMessageResponse.class);
         Root<ContactingADoctor> root = query.from(ContactingADoctor.class);
 
         query.multiselect(
@@ -44,5 +41,53 @@ public class ContactingADoctorRepositoryImpl implements ContactingADoctorReposit
         query.where(ContactingADoctorSpec.byDoctorId(id).toPredicate(root, query, builder));
 
         return manager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public ContactingADoctor findById(Integer contactingId) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<ContactingADoctor> query = builder.createQuery(ContactingADoctor.class);
+        Root<ContactingADoctor> root = query.from(ContactingADoctor.class);
+
+        query.select(root);
+
+        query.where(ContactingADoctorSpec.byId(contactingId).toPredicate(root, query, builder));
+
+        return manager.createQuery(query).getSingleResult();
+    }
+
+    @Override
+    public DoctorGetMessageResponse getMessageById(Integer id) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<DoctorGetMessageResponse> query = builder.createQuery(DoctorGetMessageResponse.class);
+        Root<ContactingADoctor> root = query.from(ContactingADoctor.class);
+        Join<ContactingADoctor, Patient> patient = root.join(ContactingADoctor_.patient);
+        Join<Patient, User> patientUser = patient.join(Patient_.user);
+
+        Selection<String> fullName = builder.concat(
+                builder.concat(
+                        patientUser.get(User_.secondName), " "
+                ),
+                builder.concat(
+                        builder.concat(patientUser.get(User_.firstName), " "),
+                        patientUser.get(User_.middleName)
+                )
+        );
+
+        query.multiselect(
+                root.get(ContactingADoctor_.id),
+                fullName,
+                root.get(ContactingADoctor_.text)
+        );
+
+        query.where(ContactingADoctorSpec.byId(id).toPredicate(root, query, builder));
+
+        return manager.createQuery(query).getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public void delete(ContactingADoctor contactingADoctor) {
+        manager.remove(contactingADoctor);
     }
 }

@@ -1,10 +1,7 @@
 package my.project.medicalsurveys.repository.specification;
 
 import jakarta.persistence.criteria.*;
-import my.project.medicalsurveys.entity.Patient;
-import my.project.medicalsurveys.entity.PatientLearn;
-import my.project.medicalsurveys.entity.PatientLearn_;
-import my.project.medicalsurveys.entity.Patient_;
+import my.project.medicalsurveys.entity.*;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientLearnSpec {
@@ -14,7 +11,7 @@ public class PatientLearnSpec {
             @Override
             public Predicate toPredicate(Root<PatientLearn> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Join<PatientLearn, Patient> patient = root.join(PatientLearn_.patient);
-                return criteriaBuilder.equal(patient.get(Patient_.id), id);
+                return criteriaBuilder.equal(patient.get(Patient_.user).get(User_.id), id);
             }
         };
     }

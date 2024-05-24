@@ -1,14 +1,14 @@
 package my.project.medicalsurveys.model.request;
 
-public class ContactingADoctorModel {
+public class PatientSendMessageRequest {
     private Long patientId;
     private Long doctorId;
     private String message;
 
-    public ContactingADoctorModel() {
+    public PatientSendMessageRequest() {
     }
 
-    public ContactingADoctorModel(Long patientId, Long doctorId, String message) {
+    public PatientSendMessageRequest(Long patientId, Long doctorId, String message) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.message = message;

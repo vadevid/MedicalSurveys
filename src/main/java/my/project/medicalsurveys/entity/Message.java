@@ -3,15 +3,13 @@ package my.project.medicalsurveys.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "contacting_a_doctor")
-public class ContactingADoctor {
+@Table(name = "message")
+public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    @Column(name = "text", nullable = false, length = 150)
-    private String text;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "doctor_id", nullable = false)
@@ -21,17 +19,20 @@ public class ContactingADoctor {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
+    @Column(name = "text", nullable = false, length = 150)
+    private String text;
+
     @Column(name = "changed", nullable = false)
     private boolean changed;
 
-    public ContactingADoctor() {
+    public Message() {
     }
 
-    public ContactingADoctor(Integer id, String text, Doctor doctor, Patient patient, boolean changed) {
+    public Message(Integer id, Doctor doctor, Patient patient, String text, boolean changed) {
         this.id = id;
-        this.text = text;
         this.doctor = doctor;
         this.patient = patient;
+        this.text = text;
         this.changed = changed;
     }
 
@@ -41,14 +42,6 @@ public class ContactingADoctor {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public Doctor getDoctor() {
@@ -65,6 +58,14 @@ public class ContactingADoctor {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public boolean isChanged() {

@@ -1,14 +1,23 @@
 package my.project.medicalsurveys.repository;
 
 import my.project.medicalsurveys.entity.Card;
-import my.project.medicalsurveys.model.response.DoctorCardModel;
-import my.project.medicalsurveys.model.response.PatientCardModel;
+import my.project.medicalsurveys.model.response.GetCardResponse;
+import my.project.medicalsurveys.model.response.DoctorGetAllCardResponse;
+import my.project.medicalsurveys.model.response.PatientGetAllCardResponse;
 
 import java.util.List;
 
 public interface CardRepository {
     void save(Card card);
-    List<PatientCardModel> findByPatientId(long id);
+    List<PatientGetAllCardResponse> findByPatientId(long id);
 
-    List<DoctorCardModel> findByDoctorId(Long id);
+    List<DoctorGetAllCardResponse> findByDoctorId(Long id);
+
+    GetCardResponse findInfoById(Integer id);
+
+    Card findById(Integer cardId);
+
+    List<Card> findNewByPatientId(Long id);
+
+    void update(Card card);
 }

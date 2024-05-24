@@ -1,7 +1,7 @@
 package my.project.medicalsurveys.repository;
 
 import my.project.medicalsurveys.entity.Doctor;
-import my.project.medicalsurveys.model.response.DoctorModel;
+import my.project.medicalsurveys.model.response.FindAllDoctorResponse;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface DoctorRepository {
 
     Doctor findById(Long doctorId);
 
-    List<DoctorModel> findAll();
+    List<FindAllDoctorResponse> findAll();
 }

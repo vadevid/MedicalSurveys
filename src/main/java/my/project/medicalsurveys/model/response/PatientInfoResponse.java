@@ -1,6 +1,6 @@
 package my.project.medicalsurveys.model.response;
 
-public class PatientInfoModel {
+public class PatientInfoResponse {
     private String fio;
     private Integer age;
     private String sex;
@@ -8,7 +8,7 @@ public class PatientInfoModel {
     private Double weight;
     private Double massIndex;
 
-    public PatientInfoModel() {
+    public PatientInfoResponse() {
     }
 
     public String getFio() {

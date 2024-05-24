@@ -1,15 +1,15 @@
 package my.project.medicalsurveys.model.response;
 
-public class DoctorCardModel {
+public class DoctorGetAllCardResponse {
     private Integer id;
     private String name;
     private String patientName;
     private String cardType;
 
-    public DoctorCardModel() {
+    public DoctorGetAllCardResponse() {
     }
 
-    public DoctorCardModel(Integer id, String name, String patientName, String cardType) {
+    public DoctorGetAllCardResponse(Integer id, String name, String patientName, String cardType) {
         this.id = id;
         this.name = name;
         this.patientName = patientName;

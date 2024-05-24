@@ -8,6 +8,7 @@ import my.project.medicalsurveys.entity.User;
 import my.project.medicalsurveys.repository.UserRepository;
 import my.project.medicalsurveys.repository.specification.UserSpec;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         manager.persist(user);
     }

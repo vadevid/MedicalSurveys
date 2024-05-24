@@ -37,10 +37,16 @@ public class Card {
     @Column(name = "max_value")
     private Double maxValue;
 
+    @Column(name = "changed", nullable = false)
+    private boolean changed;
+
+    @Column(name = "new", nullable = false, columnDefinition = "boolean default true")
+    private boolean newCard;
+
     public Card() {
     }
 
-    public Card(Integer id, String name, Patient patient, Doctor doctor, String type, Double minValue, Double maxValue) {
+    public Card(Integer id, String name, Patient patient, Doctor doctor, String type, Double minValue, Double maxValue, boolean changed, boolean newCard) {
         this.id = id;
         this.name = name;
         this.patient = patient;
@@ -48,6 +54,8 @@ public class Card {
         this.type = type;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        this.changed = changed;
+        this.newCard = newCard;
     }
 
     public Integer getId() {
@@ -104,5 +112,21 @@ public class Card {
 
     public void setMaxValue(Double maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+
+    public boolean isNewCard() {
+        return newCard;
+    }
+
+    public void setNewCard(boolean newCard) {
+        this.newCard = newCard;
     }
 }

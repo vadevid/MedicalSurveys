@@ -1,17 +1,16 @@
 package my.project.medicalsurveys.model.response;
 
-import my.project.medicalsurveys.entity.Patient;
 import my.project.medicalsurveys.entity.User;
 
-public class MessageModel {
+public class DoctorGetAllMessageResponse {
     private Integer id;
     private String answer;
     private String patientName;
 
-    public MessageModel() {
+    public DoctorGetAllMessageResponse() {
     }
 
-    public MessageModel(Integer id, String answer, User patient) {
+    public DoctorGetAllMessageResponse(Integer id, String answer, User patient) {
         this.id = id;
         this.answer = answer;
         this.patientName = patient.getFIO();

@@ -6,11 +6,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import my.project.medicalsurveys.entity.*;
-import my.project.medicalsurveys.model.response.DoctorModel;
+import my.project.medicalsurveys.model.response.FindAllDoctorResponse;
 import my.project.medicalsurveys.repository.DoctorRepository;
 import my.project.medicalsurveys.repository.specification.DoctorSpec;
-import my.project.medicalsurveys.repository.specification.PatientSpec;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class DoctorRepositoryImpl implements DoctorRepository {
     }
 
     @Override
+    @Transactional
     public void save(Doctor doctor) {
         manager.persist(doctor);
     }
@@ -34,7 +35,7 @@ public class DoctorRepositoryImpl implements DoctorRepository {
         Root<Doctor> root = query.from(Doctor.class);
 
         query.select(root);
-        query.where(DoctorSpec.byId(id).toPredicate(root, query, builder));
+        query.where(DoctorSpec.byDoctorId(id).toPredicate(root, query, builder));
 
         List<Doctor> result = manager.createQuery(query).getResultList();
         if (result.isEmpty()) return null;
@@ -42,9 +43,9 @@ public class DoctorRepositoryImpl implements DoctorRepository {
     }
 
     @Override
-    public List<DoctorModel> findAll() {
+    public List<FindAllDoctorResponse> findAll() {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<DoctorModel> query = builder.createQuery(DoctorModel.class);
+        CriteriaQuery<FindAllDoctorResponse> query = builder.createQuery(FindAllDoctorResponse.class);
         Root<Doctor> root = query.from(Doctor.class);
         Join<Doctor, User> doctorUser = root.join(Doctor_.user);
 

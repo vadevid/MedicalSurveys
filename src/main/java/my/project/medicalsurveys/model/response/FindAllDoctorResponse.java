@@ -1,16 +1,16 @@
 package my.project.medicalsurveys.model.response;
 
-public class DoctorModel {
+public class FindAllDoctorResponse {
     private Long id;
     private String type;
     private String secondName;
     private String firstName;
     private String middleName;
 
-    public DoctorModel() {
+    public FindAllDoctorResponse() {
     }
 
-    public DoctorModel(Long id, String type, String secondName, String firstName, String middleName) {
+    public FindAllDoctorResponse(Long id, String type, String secondName, String firstName, String middleName) {
         this.id = id;
         this.type = type;
         this.secondName = secondName;
