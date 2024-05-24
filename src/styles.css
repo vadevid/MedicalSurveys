@@ -23,3 +23,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .introjs-helperLayer{
   pointer-events: none;
 }
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.warning {
+  height: 15px;
+  width: 15px;
+}
+

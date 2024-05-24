@@ -41,12 +41,12 @@ export class DashboardClientComponent implements OnInit{
   router: Router;
 
   ngOnInit() {
-    this.LoadCards(this.data?.userId);
+    this.LoadCards();
   }
 
-  async LoadCards(userid: number | undefined) {
-    await axios.post("http://localhost:8080/api/patient/getAllCard", {
-      "id": userid
+  async LoadCards() {
+    await axios.post("/api/patient/getAllCard", {
+      "id": this.data?.userId
     }, {
       headers: {
         'Authorization': `Bearer ${this.data?.token}`

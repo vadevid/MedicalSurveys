@@ -50,11 +50,11 @@ export class CardPageInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.LoadCardInfo(this.data.userId);
+    this.LoadCardInfo(this.data.cardId);
   }
 
   async LoadCardInfo(id: number) {
-    await axios.post("http://localhost:8080/api/patient/getCard", {
+    await axios.post("/api/patient/getCard", {
       id: id
     }, {
       headers: {
@@ -63,13 +63,11 @@ export class CardPageInfoComponent implements OnInit {
     }).then((response) => {
         this.cardInfo = response.data
     })
-    if (this.cardInfo!.cardType == "NumberField") {
-      this.show = true;
-    } else this.show = false;
+    this.show = this.cardInfo!.cardType == "NumberField";
   }
 
   async SendNewValue() {
-    await axios.post("http://localhost:8080/api/patient/newCardValue", {
+    await axios.post("/api/patient/newCardValue", {
       cardId: this.data.cardId,
       value: this.show ? this.newNumberValue : this.newTextValue,
     }, {

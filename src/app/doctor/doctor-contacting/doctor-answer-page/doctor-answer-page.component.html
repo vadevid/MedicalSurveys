@@ -1,2 +1,12 @@
-<app-doctor-answer-page-nav [token]="token | async" [doctorId]="userId | async" [answerId]="answerId"></app-doctor-answer-page-nav>
+<!--<app-doctor-answer-page-nav [token]="token | async" [doctorId]="userId | async" [answerId]="answerId"></app-doctor-answer-page-nav>-->
+
+<app-doctor-nav [content]="dashboard" [data]="{
+  userId: userId | async,
+  token : token | async,
+  answerId: answerId
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-doctor-answer-page-dashboard [data]="data" />
+</ng-template>
 <router-outlet></router-outlet>

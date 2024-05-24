@@ -1,24 +1,36 @@
 <div class="grid-container">
-  <div class="answer-form">
+  <div>
     <h1 class="mat-h1">{{answer!.patientName}}</h1>
     <h4 class="mat-h4">{{answer!.text}}</h4>
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Параметр</mat-label>
-      <input [(ngModel)]="name" matInput type="text">
-    </mat-form-field>
-    <mat-radio-button (change)="textValue=!textValue; numberValue=!numberValue" [checked]="textValue" class="example-margin">Текстовое значение</mat-radio-button>
-    <mat-radio-button (change)="numberValue=!numberValue; textValue=!textValue" class="example-margin">Числовое значение</mat-radio-button>
-    <div *ngIf="!textValue; then minmax"></div>
-    <ng-template #minmax>
-      <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Минимальное значение</mat-label>
-        <input [(ngModel)]="min" matInput type="number">
-      </mat-form-field>
-      <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Максимальное значение</mat-label>
-        <input [(ngModel)]="max" matInput type="number">
-      </mat-form-field>
-    </ng-template>
+    <div class="answer-block">
+      <div class="answer-form">
+        <mat-checkbox class="example-margin" [checked]="!flag" (change)="flag = !flag">Создать карточку</mat-checkbox>
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Параметр</mat-label>
+          <input [(ngModel)]="name" matInput type="text" [disabled]="flag">
+        </mat-form-field>
+        <mat-radio-button (change)="textValue=!textValue; numberValue=!numberValue" [disabled]="flag" [checked]="textValue" class="example-margin">Текстовое значение</mat-radio-button>
+        <mat-radio-button (change)="numberValue=!numberValue; textValue=!textValue" [disabled]="flag" class="example-margin">Числовое значение</mat-radio-button>
+        <div *ngIf="!textValue; then minmax"></div>
+        <ng-template #minmax>
+          <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Минимальное значение</mat-label>
+            <input [(ngModel)]="min" matInput type="number">
+          </mat-form-field>
+          <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Максимальное значение</mat-label>
+            <input [(ngModel)]="max" matInput type="number">
+          </mat-form-field>
+        </ng-template>
+      </div>
+      <div class="answer-form">
+        <mat-checkbox class="example-margin" [checked]="flag" (change)="flag = !flag">Отправить сообщние</mat-checkbox>
+        <mat-form-field class="messageBlock">
+          <mat-label>Сообщение</mat-label>
+          <textarea [disabled]="!flag" matInput [(ngModel)]="message"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
     <button mat-raised-button color="primary" (click)="SendCard(answer!.id)">Отправить</button>
   </div>
 </div>

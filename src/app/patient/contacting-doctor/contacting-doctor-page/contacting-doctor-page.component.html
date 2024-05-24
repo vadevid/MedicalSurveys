@@ -1,1 +1,9 @@
-<app-contacting-doctor-page-nav [userId]="userId | async" [token]="token | async" [doctorId]="doctorId"></app-contacting-doctor-page-nav>
+<app-patient-nav [content]="dashboard" [data]="{
+userId: userId | async,
+token : token | async,
+doctorId: doctorId
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-contacting-doctor-dashboard [data]="data"/>
+</ng-template>

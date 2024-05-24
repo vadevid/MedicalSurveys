@@ -1,0 +1,27 @@
+.nav-bar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+  margin-top: 10px;
+  display: block;
+  background-color: #fff;
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
+}
+
+.menu-button::before {
+  content: '';
+  margin-top: -8px;
+}
+
+.menu-button::after {
+  content: '';
+  margin-top: 8px;
+}

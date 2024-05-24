@@ -1,0 +1,34 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Сообщения от врача</h1>
+  <div *ngIf="messagesLength!=0 then grid else emptydiv" ></div>
+  <ng-template #grid>
+    <mat-grid-list cols="3" rowHeight="180px">
+      <mat-grid-tile *ngFor="let message of pagedList" [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title class="cardTitleBlock">
+              <div class="listItem">
+                <span class="cardTitle">{{message.doctorName!.length > 30? message.doctorName!.substring(0,30)+"..." : message.doctorName}}</span>
+                <img src="assets/warning.png" class="warning" *ngIf="message.newMessage">
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <span class="doctorName">Доктор: {{message.doctorType}}</span>
+            <a mat-raised-button color="primary" class="more-button" (click)="openMessage(message.id)">
+              Просмотреть
+            </a>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-paginator class="pagination"
+                   [length]="messagesLength"
+                   [pageSize]="pageSize"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+  </ng-template>
+  <ng-template #emptydiv>
+    <h1>Сообщений нет</h1>
+  </ng-template>
+</div>

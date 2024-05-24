@@ -21,31 +21,25 @@ import {CardPageGraphComponent} from "../../../patient/card-page/card-page-graph
 })
 export class DoctorCardPageInfoComponent implements OnInit {
   @Input()
-  cardid: number| undefined;
-  @Input()
-  userId: number | undefined;
-  @Input()
-  token: string | undefined | null;
+  data: any;
   show: boolean | undefined;
   cardInfo: CardInfo | undefined;
   constructor() { }
 
   ngOnInit(): void {
-    this.LoadCardInfo(this.cardid!);
+    this.LoadCardInfo();
   }
-  async LoadCardInfo(id: number) {
-    await axios.post("http://localhost:8080/card/getcard", {
-      id: id
+  async LoadCardInfo() {
+    await axios.post("/api/doctor/getCard", {
+      id: this.data.cardId
     }, {
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
       this.cardInfo = response.data
     })
-    if (this.cardInfo!.cardType == "NumberField") {
-      this.show = true;
-    } else this.show = false;
+    this.show = this.cardInfo!.cardType == "NumberField";
   }
 
 }

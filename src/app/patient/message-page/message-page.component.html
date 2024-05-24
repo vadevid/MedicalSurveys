@@ -1,11 +1,10 @@
 <app-patient-nav [content]="dashboard" [data]="{
-userId: userId | async,
-token : token | async,
-cardId: cardid
+  userId: userId| async,
+  token: token | async
 }"/>
 
 <ng-template #dashboard let-data="newContext">
-  <app-card-page-info [data]="data"/>
+  <app-message-dashboard [data]="data"/>
 </ng-template>
 
 <router-outlet></router-outlet>

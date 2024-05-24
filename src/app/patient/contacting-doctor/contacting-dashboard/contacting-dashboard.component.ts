@@ -1,6 +1,5 @@
-import {Component, Input, numberAttribute, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {Card} from "../../../model/card";
 import {Doctor} from "../../../model/doctor";
 import axios from "axios";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
@@ -29,10 +28,8 @@ import {RouterLink} from "@angular/router";
   ]
 })
 export class ContactingDashboardComponent implements OnInit {
-  @Input({transform: numberAttribute})
-  userId: number | undefined;
   @Input()
-  token: string | undefined | null;
+  data: any;
 
   doctors: Doctor[] | undefined;
   pagedList: Doctor[] = [];
@@ -55,7 +52,7 @@ export class ContactingDashboardComponent implements OnInit {
   async LoadDoctors() {
     await axios.post("/api/patient/findAllDoctor", {},{
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
         this.doctors = response.data;

@@ -1,4 +1,4 @@
-import {Component, Input, numberAttribute, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import axios from "axios";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
@@ -21,11 +21,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class ContactingDoctorDashboardComponent implements OnInit {
   @Input()
-  token: string | undefined | null;
-  @Input({transform: numberAttribute})
-  userId: number | undefined;
-  @Input({transform: numberAttribute})
-  doctorId: number | undefined;
+  data: any;
   textValue: string | undefined;
   constructor() { }
 
@@ -34,12 +30,12 @@ export class ContactingDoctorDashboardComponent implements OnInit {
 
   async SendMessage() {
     await axios.post("/api/patient/sendMessage", {
-      patientId: this.userId,
-      doctorId: this.doctorId,
+      patientId: this.data.userId,
+      doctorId: this.data.doctorId,
       message: this.textValue
     }, {
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
       if (response.data) alert("Сообщение отправлено")

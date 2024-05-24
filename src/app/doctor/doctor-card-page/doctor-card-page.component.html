@@ -1,2 +1,11 @@
-<app-doctor-card-page-nav [userId]="userId | async"  [cardid]="cardid" [token]="token | async"></app-doctor-card-page-nav>
+<app-doctor-nav [content]="dashboard" [data]="{
+  userId: userId | async,
+  token : token | async,
+  cardId: cardId
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-doctor-card-page-info [data]="data"/>
+</ng-template>
+
 <router-outlet></router-outlet>

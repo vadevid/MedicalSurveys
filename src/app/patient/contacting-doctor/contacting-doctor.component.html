@@ -1,2 +1,9 @@
-<app-contacting-nav [userId]="userId | async" [token]="token | async" ></app-contacting-nav>
+<app-patient-nav [content]="dashboard" [data]="{
+userId: userId | async,
+token : token | async
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-contacting-dashboard [data]="data"/>
+</ng-template>
 <router-outlet></router-outlet>

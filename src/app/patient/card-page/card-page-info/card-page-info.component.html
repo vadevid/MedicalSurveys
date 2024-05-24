@@ -5,13 +5,13 @@
   </div>
   <ng-template #numberTabs>
     <mat-tab-group class="tabs" mat-align-tabs="start">
-      <mat-tab label="Таблица"><app-card-page-table [cardid]="data.cardId" [token]="data.token"></app-card-page-table></mat-tab>
-      <mat-tab label="График"><app-card-page-graph [cardid]="data.cardId" [token]="data.token"></app-card-page-graph></mat-tab>
+      <mat-tab label="Таблица"><app-card-page-table [cardid]="data.cardId" [token]="data.token" [target]="true"></app-card-page-table></mat-tab>
+      <mat-tab label="График"><app-card-page-graph [cardid]="data.cardId" [token]="data.token" [target]="true"></app-card-page-graph></mat-tab>
     </mat-tab-group>
   </ng-template>
   <ng-template #textTabs>
     <mat-tab-group class="tabs" mat-align-tabs="start">
-      <mat-tab label="Таблица"><app-card-page-table [cardid]="data.cardId" [token]="data.token"></app-card-page-table></mat-tab>
+      <mat-tab label="Таблица"><app-card-page-table [cardid]="data.cardId" [token]="data.token" [target]="true"></app-card-page-table></mat-tab>
     </mat-tab-group>
   </ng-template>
 

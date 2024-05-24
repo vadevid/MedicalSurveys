@@ -18,8 +18,8 @@
     </mat-grid-tile>
   </mat-grid-list>
   <mat-paginator class="pagination"
-                 [length]="12"
-                 [pageSize]="6"
+                 [length]="doctorsLength"
+                 [pageSize]="pageSize"
                  (page)="onPageChange($event)">
   </mat-paginator>
 </div>

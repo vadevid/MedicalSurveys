@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {PatientNavComponent} from "../../nav/patient-nav/patient-nav.component";
+import {PatientNavComponent} from "../patient-nav.component";
 import {Store} from "@ngrx/store";
-import {UserState} from "../../store/user.reducer";
+import {UserState} from "../../../store/user.reducer";
 import {Router} from "@angular/router";
 import axios from "axios";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {logout} from "../../store/user.actions";
+import {logout} from "../../../store/user.actions";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -93,7 +93,7 @@ export class ProfileDialogComponent implements OnInit {
         'Authorization': `Bearer ${this.token}`
       }
     }).then( (response) => {
-      if (response.data) this.dialog.closeAll();
+      if (response.data) this.getPatientInfo(this.userId);
       else prompt("Отправка не удалась")
       }
     )

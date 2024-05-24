@@ -11,7 +11,8 @@ import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
-import {ProfileDialogComponent} from "../../patient/profile-dialog/profile-dialog.component";
+import {ProfileDialogComponent} from "./profile-dialog/profile-dialog.component";
+import axios from "axios";
 
 @Component({
   selector: 'app-patient-nav',
@@ -38,16 +39,14 @@ import {ProfileDialogComponent} from "../../patient/profile-dialog/profile-dialo
 export class PatientNavComponent implements OnInit{
   @Input()
   content: TemplateRef<any> | null = null;
-  // @Input({transform: numberAttribute})
-  // userId: number | undefined;
-  // @Input({transform: (value: string | null): string | undefined => value!})
-  // token: string | undefined;
   @Input()
   data: any;
 
   newContext: any;
 
-  flag: boolean = false;
+  newCards: boolean = false;
+
+  newMessages: boolean = false;
 
   logoutEmmit = new EventEmitter<number>();
 
@@ -68,11 +67,8 @@ export class PatientNavComponent implements OnInit{
     if (this.data.userId == 0) {
       this.router.navigate(['/login']);
     }
-    this.newContext = {
-      userId: this.data.userId,
-      token: this.data.token
-    }
-    this.flag = true;
+    this.checkNewCards()
+    this.checkNewMessages()
   }
 
   openProfileDialog() {
@@ -86,5 +82,25 @@ export class PatientNavComponent implements OnInit{
     })
   }
 
-  protected readonly console = console;
+  async checkNewCards() {
+    await axios.post("/api/patient/checkNewCard", {
+      id: this.data.userId
+    },
+      {
+        headers: {
+          'Authorization': `Bearer ${this.data.token}`
+        }
+      }).then(res => this.newCards = res.data)
+  }
+
+  async checkNewMessages() {
+    await axios.post("/api/patient/checkNewMessages", {
+        id: this.data.userId
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${this.data.token}`
+        }
+      }).then(res => this.newMessages = res.data)
+  }
 }

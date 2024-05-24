@@ -1,28 +1,39 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
-    <mat-toolbar class="nav-bar" color="primary" >
+    <mat-toolbar class="nav-bar" color="primary">
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon">
+          <div class='menu-button'></div>
+        </mat-icon>
       </button>
       <span>MedicalSurvey</span>
-      <button  (click)="openProfileDialog()" mat-button><img class="avatar" src="../../../../assets/avatar-1.png"></button>
+      <button (click)="openProfileDialog()" mat-button><img class="avatar" src="assets/icon.png"></button>
     </mat-toolbar>
-    <ng-template [ngIf]="flag">
-      <ng-container *ngTemplateOutlet="content; context: {newContext: newContext}"/>
-    </ng-template>
+    <ng-container *ngTemplateOutlet="content; context: {newContext: data}"/>
   </mat-sidenav-content>
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Меню</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/clientpage">Дневники</a>
+      <a mat-list-item routerLink="/clientpage">
+        <div class="listItem">
+          <div>Дневники</div>
+          <img *ngIf="newCards" class="warning" src="assets/warning.png">
+        </div>
+      </a>
+      <a mat-list-item routerLink="/messagespage">
+        <div class="listItem">
+          <div>Сообщения от врача</div>
+          <img *ngIf="newMessages" class="warning" src="assets/warning.png">
+        </div>
+      </a>
       <a mat-list-item routerLink="/contactingdoctor">Обращение к врачу</a>
     </mat-nav-list>
   </mat-sidenav>

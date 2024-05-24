@@ -37,6 +37,4 @@ export class ClientPageComponent implements OnInit {
   ngOnInit(): void {
     this.userSyncStorage.init();
   }
-
-  protected readonly console = console;
 }

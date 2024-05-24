@@ -4,4 +4,5 @@ export class Card {
   doctorName: string | undefined;
   doctorType: string | undefined;
   type: string | undefined;
+  newCard: boolean | undefined;
 }

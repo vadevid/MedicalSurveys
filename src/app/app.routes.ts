@@ -11,6 +11,7 @@ import {
 } from "./patient/contacting-doctor/contacting-doctor-page/contacting-doctor-page.component";
 import {DoctorPageComponent} from "./doctor/doctor-page/doctor-page.component";
 import {DoctorCardPageComponent} from "./doctor/doctor-card-page/doctor-card-page.component";
+import {MessagePageComponent} from "./patient/message-page/message-page.component";
 
 export const routes: Routes = [
   {
@@ -57,5 +58,9 @@ export const routes: Routes = [
   {
     path: 'doctorcardpage',
     component: DoctorCardPageComponent
+  },
+  {
+    path: 'messagespage',
+    component: MessagePageComponent
   }
 ];

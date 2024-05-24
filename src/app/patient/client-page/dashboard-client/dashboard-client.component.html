@@ -7,7 +7,10 @@
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title class="cardTitleBlock">
-              <span class="cardTitle">{{card.name!.length > 30? card.name!.substring(0,30)+"..." : card.name}}</span>
+              <div class="listItem">
+                <span class="cardTitle">{{card.name!.length > 30? card.name!.substring(0,30)+"..." : card.name}}</span>
+                <img src="assets/warning.png" class="warning" *ngIf="card.newCard">
+              </div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">

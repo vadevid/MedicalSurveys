@@ -41,6 +41,8 @@ export class CardPageTableComponent implements OnInit {
   cardid: number | undefined;
   @Input()
   token: string | undefined | null;
+  @Input()
+  target: boolean | undefined;
 
   dataSource : CardValues[] = [];
   displayedColumns: string[] = ['answer', 'answerDate']
@@ -51,16 +53,31 @@ export class CardPageTableComponent implements OnInit {
   }
 
   async GetData() {
-    await axios.post("http://localhost:8080/api/patient/getCardAllAnswer", {
-      id: this.cardid
-    }, {
-      headers: {
-        'Authorization': `Bearer ${this.token}`
-      }
-    }).then((response) => {
-        this.dataSource = response.data;
-      }
-    )
+    if (this.target) {
+      await axios.post("/api/patient/getCardAllAnswer", {
+        id: this.cardid
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`
+        }
+      }).then((response) => {
+          this.dataSource = response.data;
+        }
+      )
+    }
+    if (!this.target) {
+      await axios.post("/api/doctor/getCardAllAnswer", {
+        id: this.cardid
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`
+        }
+      }).then((response) => {
+          this.dataSource = response.data;
+        }
+      )
+    }
+
   }
 
 }

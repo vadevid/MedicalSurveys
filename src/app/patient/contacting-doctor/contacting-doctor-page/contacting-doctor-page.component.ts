@@ -2,10 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {UserState} from "../../../store/user.reducer";
-import {ActivatedRoute} from "@angular/router";
-import {ContactingDoctorPageNavComponent} from "./contacting-doctor-page-nav/contacting-doctor-page-nav.component";
-import {AsyncPipe} from "@angular/common";
+import {ActivatedRoute, RouterOutlet} from "@angular/router";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {selectToken, selectUserId} from "../../../store/user.selectors";
+import {ContactingDashboardComponent} from "../contacting-dashboard/contacting-dashboard.component";
+import {PatientNavComponent} from "../../../nav/patient-nav/patient-nav.component";
+import {ContactingDoctorDashboardComponent} from "./contacting-doctor-dashboard/contacting-doctor-dashboard.component";
 
 @Component({
   selector: 'app-contacting-doctor-page',
@@ -13,9 +15,13 @@ import {selectToken, selectUserId} from "../../../store/user.selectors";
   styleUrls: ['./contacting-doctor-page.component.css'],
   standalone: true,
   imports: [
-    ContactingDoctorPageNavComponent,
     AsyncPipe,
-    AsyncPipe
+    AsyncPipe,
+    RouterOutlet,
+    ContactingDashboardComponent,
+    PatientNavComponent,
+    ContactingDoctorDashboardComponent,
+    NgIf
   ]
 })
 export class ContactingDoctorPageComponent implements OnInit {
@@ -26,9 +32,10 @@ export class ContactingDoctorPageComponent implements OnInit {
 
   constructor(
     private store$: Store<UserState>,
-    @Inject(ActivatedRoute) route: ActivatedRoute,) {
+    @Inject(ActivatedRoute) route: ActivatedRoute) {
     this.route = route;
-    this.doctorId = +this.route.snapshot.paramMap.get('id')!; }
+    this.doctorId = +this.route.snapshot.paramMap.get('id')!;
+  }
 
   ngOnInit(): void {
   }

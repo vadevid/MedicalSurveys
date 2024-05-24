@@ -1,2 +1,9 @@
-<app-doctor-page-nav [userId]="userId | async" [token]="token | async"></app-doctor-page-nav>
+<app-doctor-nav [content]="dashboard" [data]="{
+  userId: userId | async,
+token : token | async
+}"/>
+
+<ng-template #dashboard let-data="newContext">
+  <app-doctor-page-dashboard [data]="data"></app-doctor-page-dashboard>
+</ng-template>
 <router-outlet></router-outlet>

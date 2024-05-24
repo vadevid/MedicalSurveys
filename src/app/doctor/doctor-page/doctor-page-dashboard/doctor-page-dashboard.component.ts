@@ -1,7 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {Card} from "../../../model/card";
 import axios from "axios";
 import {DoctorCard} from "../../../model/doctor-card";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
@@ -32,9 +31,7 @@ import {MatAnchor} from "@angular/material/button";
 export class DoctorPageDashboardComponent implements OnInit {
   cards: DoctorCard[] = [];
   @Input()
-  userid: number | undefined;
-  @Input()
-  token: string | undefined | null;
+  data: any;
   pagedList: DoctorCard[] = [];
   cardLength: number | undefined;
   pageSize = 6;
@@ -52,11 +49,11 @@ export class DoctorPageDashboardComponent implements OnInit {
   }
 
   async LoadCards() {
-    await axios.post("http://localhost:8080/card/getdoctorall", {
-      "id": this.userid
+    await axios.post("/api/doctor/getAllCard", {
+      "id": this.data.userId
     },{
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
         this.cards = response.data;

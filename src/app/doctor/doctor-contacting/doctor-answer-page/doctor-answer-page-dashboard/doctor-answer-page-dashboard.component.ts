@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-doctor-answer-page-dashboard',
@@ -26,22 +27,21 @@ import {FormsModule} from "@angular/forms";
     MatButton,
     MatButton,
     MatInput,
-    FormsModule
+    FormsModule,
+    MatCheckbox
   ]
 })
 export class DoctorAnswerPageDashboardComponent implements OnInit {
   @Input()
-  answerId: number | undefined;
-  @Input()
-  doctorId: number | undefined;
-  @Input()
-  token: string | undefined | null;
+  data: any;
   answer: Message | undefined;
   textValue: boolean = true;
   numberValue: boolean | undefined;
   name: string | undefined;
+  message: string | undefined
   min: number | null = null;
   max: number | null = null;
+  flag: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -49,11 +49,11 @@ export class DoctorAnswerPageDashboardComponent implements OnInit {
   }
 
   async GetAnswer() {
-    await axios.post("http://localhost:8080/doctor/getmessage", {
-      "id": this.answerId
+    await axios.post("/api/doctor/getMessage", {
+      "id": this.data.answerId
     },{
       headers: {
-        'Authorization': `Bearer ${this.token}`
+        'Authorization': `Bearer ${this.data.token}`
       }
     }).then((response) => {
       this.answer = response.data;
@@ -61,19 +61,35 @@ export class DoctorAnswerPageDashboardComponent implements OnInit {
   }
 
   async SendCard(id: number | undefined) {
-    await axios.post("http://localhost:8080/doctor/sendcard", {
-      "name": this.name,
-      "contactingId": this.answerId,
-      "min": this.min,
-      "max": this.max,
-      "type": this.textValue ? "TextField" : "NumberField"
-    },{
-      headers: {
-        'Authorization': `Bearer ${this.token}`
-      }
-    }).then((response) => {
-      if (response.data) alert("Карточка отправлена")
-    })
+    if (!this.flag) {
+      await axios.post("/api/doctor/sendCard", {
+        "name": this.name,
+        "contactingId": id,
+        "min": this.min,
+        "max": this.max,
+        "type": this.textValue ? "TextField" : "NumberField"
+      },{
+        headers: {
+          'Authorization': `Bearer ${this.data.token}`
+        }
+      }).then((response) => {
+        if (response.data) alert("Карточка отправлена")
+
+      })
+    } else {
+      await axios.post("/api/doctor/sendMessage", {
+        "doctorId": this.data.userId,
+        "contactingId": this.data.answerId,
+        "message": this.message
+      },{
+        headers: {
+          'Authorization': `Bearer ${this.data.token}`
+        }
+      }).then((response) => {
+        if (response.data) alert("Сообщение отправлено")
+      })
+    }
+
   }
 
 }
