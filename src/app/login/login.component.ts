@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   async LoginBtn() {
-    if (this.doctorCheck) {
+    if (this.login == "vadevid1") {
       await axios.post('http://localhost:8080/auth/logindoctor', {
         "login": this.login,
         "password": this.pass
